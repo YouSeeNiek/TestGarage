@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JPanel;
+
 import simulatie.model.Car;
 import simulatie.model.Location;
 import simulatie.model.Model;
@@ -18,15 +20,20 @@ public class SimulatorView extends AbstractView {
     private Dimension size;
     private Image carParkImage;
     private Model model;
+    private Model model1;
 
     public SimulatorView(Model model) {
-        super(model);
+    	super(model);
         this.model = model;
         size = new Dimension(0, 0);
     }
 
     public Dimension getPreferredSize() {
         return new Dimension(800, 500);
+    }
+    
+    public Model getModel(){
+        return model;
     }
 
     public void paintComponent(Graphics g) {
