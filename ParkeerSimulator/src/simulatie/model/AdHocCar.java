@@ -1,0 +1,35 @@
+package simulatie.model;
+
+import java.awt.Color;
+import java.util.Random;
+
+
+/**
+ * @author Niek Tillema, Jasper van Dijken, Rick Nieborg, Jason de Lijster
+ * @version 17-1-2019
+ */
+
+public class AdHocCar extends Car {
+    private static final Color COLOR = Color.RED;
+
+    /**
+     * Constructor for the AdHocCar class. Car stays between 15 and 195 minutes.
+     */
+    public AdHocCar() {
+        Random random = new Random();
+        int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
+        this.setMinutesLeft(stayMinutes);
+        this.setMinutesTotal(stayMinutes);
+        this.setHasToPay(true);
+        this.setHasReserved(false);
+        this.setHasReducedPrice(false);
+        ;
+    }
+
+    /**
+     * @return Colour of the car
+     */
+    public Color getColor() {
+        return COLOR;
+    }
+}
