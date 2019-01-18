@@ -4,15 +4,13 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * Created by Timothy on 6-2-2017.
+ * @author Niek Tillema, Jasper van Dijken, Rick Nieborg, Jason de Lijster
+ * @version 17-1-2019
  */
 
 public class ParkingPassCar extends Car {
     private static final Color COLOR=Color.BLUE;
 
-    /**
-     * Constructor for the ParkingPassCar class. Car stays between 15 and 195 minutes.
-     */
     public ParkingPassCar() {
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
@@ -23,9 +21,6 @@ public class ParkingPassCar extends Car {
         this.setHasReducedPrice(true);
     }
 
-    /**
-     * @return  Colour of the car
-     */
     public Color getColor(){
         return COLOR;
     }

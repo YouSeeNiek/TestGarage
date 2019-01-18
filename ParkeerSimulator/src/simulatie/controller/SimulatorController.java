@@ -26,5 +26,4 @@ public class SimulatorController extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
-
 }

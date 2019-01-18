@@ -31,16 +31,16 @@ public class Model implements Runnable{
 
     private int tickPause = 100;
 
-    int weekDayArrivals=100; // average number of arriving cars per hour
-    int weekendArrivals = 200; // average number of arriving cars per hour
-    int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    int weekendPassArrivals = 5; // average number of arriving cars per hour
-    int weekDayReservedArrivals= 50; // average number of arriving cars per hour
-    int weekendReservedArrivals = 5; // average number of arriving cars per hour
+    int weekDayArrivals=100;
+    int weekendArrivals = 200;
+    int weekDayPassArrivals= 50;
+    int weekendPassArrivals = 5;
+    int weekDayReservedArrivals= 50;
+    int weekendReservedArrivals = 5;
 
-    int enterSpeed = 3; // number of cars that can enter per minute
-    int paymentSpeed = 7; // number of cars that can pay per minute
-    int exitSpeed = 5; // number of cars that can leave per minute
+    int enterSpeed = 3;
+    int paymentSpeed = 7;
+    int exitSpeed = 5;
 
     double turnoverTotal;
 
@@ -93,7 +93,6 @@ public class Model implements Runnable{
         advanceTime();
         handleExit();
         updateViews();
-        // Pause.
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
@@ -155,7 +154,6 @@ public class Model implements Runnable{
     }
 
     private void carsReadyToLeave(){
-    	// Remove car from the front of the queue and assign to a parking space.
         Car car = getFirstLeavingCar();
         while (car!=null) {
         	if (car.getHasToPay()){
@@ -183,7 +181,6 @@ public class Model implements Runnable{
     }
 
     private void carsLeaving(){
-        // Let cars leave.
         int i=0;
         while (exitCarQueue.carsInQueue()>0 && i < exitSpeed){
             exitCarQueue.removeCar();
@@ -194,12 +191,10 @@ public class Model implements Runnable{
     private int getNumberOfCars(int weekDay, int weekend){
         Random random = new Random();
 
-        // Get the average number of cars that arrive per hour.
         int averageNumberOfCarsPerHour = day < 5
                 ? weekDay
                 : weekend;
 
-        // Calculate the number of cars that arrive this minute.
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
         return (int)Math.round(numberOfCarsPerHour / 60);
@@ -343,7 +338,6 @@ public class Model implements Runnable{
                 }
             }
         }
-
         String text = String.format("%.2f", (double)turnoverTotal);
     }
 

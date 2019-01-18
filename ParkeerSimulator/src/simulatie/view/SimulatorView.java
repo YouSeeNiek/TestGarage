@@ -46,13 +46,11 @@ public class SimulatorView extends AbstractView {
             g.drawImage(carParkImage, 0, 0, null);
         }
         else {
-            // Rescale the previous image.
             g.drawImage(carParkImage, 0, 0, currentSize.width, currentSize.height, null);
         }
     }
 
     public void updateView() {
-        // Create a new car park image if the size has changed.
         if (!size.equals(getSize())) {
             size = getSize();
             carParkImage = createImage(size.width, size.height);

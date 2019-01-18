@@ -12,9 +12,6 @@ import java.util.Random;
 public class AdHocCar extends Car {
     private static final Color COLOR = Color.RED;
 
-    /**
-     * Constructor for the AdHocCar class. Car stays between 15 and 195 minutes.
-     */
     public AdHocCar() {
         Random random = new Random();
         int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
@@ -26,9 +23,6 @@ public class AdHocCar extends Car {
         ;
     }
 
-    /**
-     * @return Colour of the car
-     */
     public Color getColor() {
         return COLOR;
     }
