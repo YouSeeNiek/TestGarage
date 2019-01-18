@@ -1,8 +1,8 @@
-package simulatie.view;
+package simulatie;
 
 import javax.swing.JPanel;
 
-import simulatie.model.Model;
+import simulatie.model.Simulator;
 
 /**
  * @author Niek Tillema, Jasper van Dijken, Rick Nieborg, Jason de Lijster
@@ -10,14 +10,14 @@ import simulatie.model.Model;
  */
 
 public abstract class AbstractView extends JPanel{
-    protected Model model;
+    protected Simulator model;
 
-    public AbstractView(Model model) {
+    public AbstractView(Simulator model) {
         this.model = model;
         model.addView(this);
     }
 
-    public Model getModel(){
+    public Simulator getModel(){
         return model;
     }
 

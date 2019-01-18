@@ -1,11 +1,11 @@
-package simulatie.controller;
+package simulatie;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import simulatie.model.Model;
+import simulatie.model.Simulator;
 
 
 /**
@@ -15,9 +15,9 @@ import simulatie.model.Model;
 
 public class SimulatorController extends JPanel implements ActionListener {
 
-	private Model model;
+	private Simulator model;
 	
-    public SimulatorController(Model model){
+    public SimulatorController(Simulator model){
         this.model = model;
         this.setLayout(null);
         setVisible(true);

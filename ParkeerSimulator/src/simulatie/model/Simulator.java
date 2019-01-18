@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import simulatie.view.AbstractView;
-import simulatie.view.SimulatorView;
+import simulatie.AbstractView;
+import simulatie.SimulatorView;
 
-public class Model implements Runnable{
+public class Simulator implements Runnable{
 
     private int numberOfFloors;
     private int numberOfRows;
@@ -51,7 +51,7 @@ public class Model implements Runnable{
 
     private List<AbstractView> views;
     
-    public Model() {
+    public Simulator() {
         this.numberOfFloors = 3;
         this.numberOfRows = 6;
         this.numberOfPlaces = 30;

@@ -1,4 +1,4 @@
-package simulatie.view;
+package simulatie;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import simulatie.model.Car;
 import simulatie.model.Location;
-import simulatie.model.Model;
+import simulatie.model.Simulator;
 
 /**
  * @author Niek Tillema, Jasper van Dijken, Rick Nieborg, Jason de Lijster
@@ -19,10 +19,10 @@ public class SimulatorView extends AbstractView {
 
     private Dimension size;
     private Image carParkImage;
-    private Model model;
-    private Model model1;
+    private Simulator model;
+    private Simulator model1;
 
-    public SimulatorView(Model model) {
+    public SimulatorView(Simulator model) {
     	super(model);
         this.model = model;
         size = new Dimension(0, 0);
@@ -32,7 +32,7 @@ public class SimulatorView extends AbstractView {
         return new Dimension(800, 500);
     }
     
-    public Model getModel(){
+    public Simulator getModel(){
         return model;
     }
 

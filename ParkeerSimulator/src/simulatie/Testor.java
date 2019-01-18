@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import simulatie.controller.SimulatorController;
-import simulatie.model.Model;
-import simulatie.view.AbstractView;
-import simulatie.view.SimulatorView;
+import simulatie.SimulatorController;
+import simulatie.model.Simulator;
+import simulatie.AbstractView;
+import simulatie.SimulatorView;
 
 /**
  * 
@@ -16,15 +16,15 @@ import simulatie.view.SimulatorView;
  *
  */
 
-public class Simulator {
+public class Testor {
     private JFrame screen;
-    private Model model;
+    private Simulator model;
     private AbstractView carparkview;
 
     private SimulatorController controller;
 
-    public Simulator() {
-        model = new Model();
+    public Testor() {
+        model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
         screen = new JFrame("Parkeer Simulator");
