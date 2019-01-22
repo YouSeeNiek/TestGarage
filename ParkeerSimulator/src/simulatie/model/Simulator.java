@@ -139,19 +139,32 @@ public class Simulator implements Runnable{
         addArrivingCars(numberOfCars, AD_HOC);
         numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
         addArrivingCars(numberOfCars, PASS);
+        numberOfCars=getNumberOfCars(weekDayReservedArrivals, weekendReservedArrivals);
+        addArrivingCars(numberOfCars, RESERVED);
     }
     
     private void carsEntering(CarQueue queue){
         int i=0;
-    	while (queue.carsInQueue()>0 && 
-    			getNumberOfOpenSpots()>0 && 
-    			i<enterSpeed) {
-            Car car = queue.removeCar();
-            Location freeLocation = getFirstFreeLocation();
-            setCarAt(freeLocation, car);
-            i++;
+        while(queue.carsInQueue() > 0 && i<enterSpeed && ((queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) || (!queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) ) ) {
+            if(queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) {
+                Car car = queue.removeCar();
+                Location freeLocation = getFirstFreeReservedLocation();
+                setCarAt(freeLocation, car);
+                i++;
+            } else if(!queue.peekCar().getHasReserved() && getNumberOfOpenSpots() > 0) {
+                Car car = queue.removeCar();
+                Location freeLocation = getFirstFreeLocation();
+                setCarAt(freeLocation, car);
+
+                if(!car.getHasToPay()) {
+                    double priceTemp = priceReduced * (car.getMinutesTotal() / (double) 60);
+                    turnoverTotal += priceTemp;
+                }
+
+                i++;
+            }
         }
-    }
+     }
 
     private void carsReadyToLeave(){
         Car car = getFirstLeavingCar();
@@ -210,6 +223,11 @@ public class Simulator implements Runnable{
             case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
                     entrancePassQueue.addCar(new ParkingPassCar());
+                }
+                break;
+            case RESERVED:
+                for (int i = 0; i < numberOfCars; i++) {
+                    entrancePassQueue.addCar(new ReservedCar());
                 }
                 break;
         }

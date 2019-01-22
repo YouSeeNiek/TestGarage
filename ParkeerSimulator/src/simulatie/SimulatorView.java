@@ -66,6 +66,18 @@ public class SimulatorView extends AbstractView {
                 }
             }
         }
+        
+        for(int floor = 2; floor < model.getNumberOfFloors(); floor++) {
+            for(int row = 0; row < model.getNumberOfRows(); row++) {
+                for(int place = 0; place < model.getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    Car car = model.getCarAt(location);
+                    Color color = car == null ? Color.decode("#00ff00") : car.getColor();
+                    drawPlace(graphics, location, color);
+                }
+            }
+        }
+        
         repaint();
     }
 
