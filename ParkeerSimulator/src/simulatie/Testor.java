@@ -61,18 +61,24 @@ public class Testor {
         screen.setSize(1000, 600);
         screen.setResizable(false);
         
-        JButton button = new JButton("Start");
+        
+        final JButton button = new JButton("Start");
         button.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		model.start();
+        		button.setVisible(false);
+        		button_2.setVisible(true);
         	}
         });
         
         button_2 = new JButton("Pause");
+        button_2.setVisible(false);
         button_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//Method to pause
         		model.stop();
+        		button_2.setVisible(false);
+        		button.setVisible(true);
         	}
         });
         
@@ -82,6 +88,7 @@ public class Testor {
         		model.tick();
         	}
         });
+        
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         txtrSpeed = new JTextArea();
