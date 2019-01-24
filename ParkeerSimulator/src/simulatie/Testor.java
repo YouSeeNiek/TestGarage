@@ -2,6 +2,7 @@ package simulatie;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -35,6 +36,10 @@ import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import java.awt.Label;
+import javax.swing.JEditorPane;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 /**
  * 
@@ -54,7 +59,9 @@ public class Testor {
     private JButton button_2;
     private JSlider slider;
     private JTextArea txtrSpeed;
-    private JProgressBar progressBar;
+    private static JProgressBar progressBar;
+    private Label label;
+    private JPanel panel_2;
 
     public Testor() {
         model = new Simulator();
@@ -66,56 +73,72 @@ public class Testor {
         
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
-        txtrSpeed = new JTextArea();
-        txtrSpeed.setBackground(UIManager.getColor("CheckBox.background"));
-        txtrSpeed.setText("Speed");
-        carparkview.add(txtrSpeed);
-        
-        slider = new JSlider(JSlider.HORIZONTAL,10,1000,500);
-        slider.setMajorTickSpacing(50);
-        slider.setPaintTicks(true);
-        slider.setInverted(true);
-        
         Event e = new Event();
-        slider.addChangeListener(e);
-        
-        carparkview.add(slider);
         
         Container contentPane = screen.getContentPane();
         
         JPanel panel = new JPanel();
         
         JPanel panel_1 = new JPanel();
+        
+        panel_2 = new JPanel();
+        
+        txtrSpeed = new JTextArea();
+        txtrSpeed.setBackground(UIManager.getColor("CheckBox.background"));
+        txtrSpeed.setText("Speed");
+        
+        JTextArea txtrCapacity = new JTextArea();
+        txtrCapacity.setText("Capacity");
+        txtrCapacity.setBackground(SystemColor.window);
         GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(99)
+        					.addGap(291)
+        					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(476)
+        					.addComponent(txtrSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(358)
+        					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(90)
         					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE))
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(99)
-        							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE))
-        						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-        							.addGap(100)
-        							.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        					.addGap(13)))
-        			.addGap(87))
+        					.addGap(468)
+        					.addComponent(txtrCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(66)
+        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(96, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-        			.addGap(5)
-        			.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 469, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-        			.addGap(25))
+        			.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(txtrSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(txtrCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(2)
+        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(100, Short.MAX_VALUE))
         );
+        
+        slider = new JSlider(JSlider.HORIZONTAL,10,1000,500);
+        panel_2.add(slider);
+        slider.setMajorTickSpacing(50);
+        slider.setPaintTicks(true);
+        slider.setInverted(true);
+        slider.addChangeListener(e);
         
         
         final JButton button = new JButton("Start");
@@ -125,6 +148,7 @@ public class Testor {
         		model.start();
         		button.setVisible(false);
         		button_2.setVisible(true);
+        		
         	}
         });
         
@@ -134,7 +158,7 @@ public class Testor {
         button_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//Method to pause
-        		model.stop();
+        		model.pause();
         		button_2.setVisible(false);
         		button.setVisible(true);
         	}
@@ -147,24 +171,16 @@ public class Testor {
         		model.tick();
         	}
         });
-        
-        
+       
+       
         
         progressBar = new JProgressBar();
+        progressBar.setStringPainted(true);
+        progressBar.setToolTipText("");
         panel.add(progressBar);
-        progressBar.setMaximum(480);
-        
-        while (model.run) {
-        	progressBar.setValue(model.getAmountOfPresentCars());
-        }
-        
-        progressBar.setIndeterminate(true);
-        
-        
-        
-        
-        
-        
+        progressBar.setMaximum(540);
+        progressBar.setMinimum(0);
+       
         
         
         screen.getContentPane().setLayout(groupLayout);
@@ -175,6 +191,12 @@ public class Testor {
         //Makes sure the parking spots are visible when starting up
         model.tick();
     }
+    
+    //Method to update the progressBar
+    public static void setProgressValue(int numberOfCars) {
+    	progressBar.setValue(numberOfCars);
+    }
+    
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "SwingAction");

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import simulatie.AbstractView;
 import simulatie.SimulatorView;
+import simulatie.Testor;
 
 public class Simulator implements Runnable {
 
@@ -14,6 +15,7 @@ public class Simulator implements Runnable {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private int numberOfOpenReservedSpots;
+    private int numberOfPresentCars;
     private Car[][][] cars;
 
     private static final String AD_HOC = "1";
@@ -50,8 +52,10 @@ public class Simulator implements Runnable {
     public boolean run;
 
     private List<AbstractView> views;
+	
     
     public Simulator() {
+    	this.numberOfPresentCars = 0;
         this.numberOfFloors = 3;
         this.numberOfRows = 6;
         this.numberOfPlaces = 30;
@@ -84,21 +88,13 @@ public class Simulator implements Runnable {
         new Thread(this).start();
     }
 
-    //Method to stop the simulation, under construction by Jasper
-    public void stop() {
+    //Method to pause the simulation
+    public void pause() {
     	run = false;
     }
     
     public static void setTickPause(int i) {
     	tickPause = i;
-    }
-    
-    public int getAmountOfPresentCars() {
-    	
-    	int emptyLots = getNumberOfOpenSpots();
-    	int i = 480 - emptyLots;
-    	
-    	return i;
     }
     
     public void run() {
@@ -109,15 +105,23 @@ public class Simulator implements Runnable {
         		return;
         	}
         	tick();
-        	getAmountOfPresentCars();
         }
         
     }
-
+    
+    
+    //Calculation to get the amount of cars present in the garage
+    public int getNumberOfCars() {
+    	return numberOfPresentCars = (540-(numberOfOpenSpots+numberOfOpenReservedSpots));
+    }
+    
+    
     public void tick() {
         advanceTime();
         handleExit();
         updateViews();
+        //Calling the method in Testor to update progressBar with each Tick()
+        Testor.setProgressValue(getNumberOfCars());
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
