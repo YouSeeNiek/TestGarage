@@ -78,18 +78,25 @@ public class Simulator implements Runnable{
         for(AbstractView v: views) v.updateView();
     }
     
+    //Method to start the simulation
     public void start() {
         new Thread(this).start();
     }
 
+    //Method to stop the simulation, under construction by Jasper
+    public void stop() {
+    	Thread.currentThread().interrupt();
+    }
+    
     public void run() {
         run = true;
+        
         for (int i = 0; i < 10000; i++) {
-            tick();
+        	tick();
         }
     }
 
-    private void tick() {
+    public void tick() {
         advanceTime();
         handleExit();
         updateViews();
@@ -99,6 +106,7 @@ public class Simulator implements Runnable{
             e.printStackTrace();
         }
         handleEntrance();
+        
     }
 
     private void advanceTime(){
