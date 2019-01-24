@@ -7,7 +7,7 @@ import java.util.Random;
 import simulatie.AbstractView;
 import simulatie.SimulatorView;
 
-public class Simulator implements Runnable{
+public class Simulator implements Runnable {
 
     private int numberOfFloors;
     private int numberOfRows;
@@ -47,7 +47,7 @@ public class Simulator implements Runnable{
     double price;
     double priceReduced;
 
-    private boolean run;
+    public boolean run;
 
     private List<AbstractView> views;
     
@@ -80,12 +80,13 @@ public class Simulator implements Runnable{
     
     //Method to start the simulation
     public void start() {
+    	run = true;
         new Thread(this).start();
     }
 
     //Method to stop the simulation, under construction by Jasper
     public void stop() {
-    	Thread.currentThread().interrupt();
+    	run = false;
     }
     
     public static void setTickPause(int i) {
@@ -97,20 +98,20 @@ public class Simulator implements Runnable{
     	int emptyLots = getNumberOfOpenSpots();
     	int i = 480 - emptyLots;
     	
-    	
     	return i;
     }
     
     public void run() {
-        run = true;
+        //run = true;
         
         for (int i = 0; i < 10000; i++) {
+        	if (!run) {
+        		return;
+        	}
         	tick();
         	getAmountOfPresentCars();
-        	
-        	
-
         }
+        
     }
 
     public void tick() {

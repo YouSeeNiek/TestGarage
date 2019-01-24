@@ -71,7 +71,7 @@ public class Testor {
         txtrSpeed.setText("Speed");
         carparkview.add(txtrSpeed);
         
-        slider = new JSlider(JSlider.HORIZONTAL,0,1000,500);
+        slider = new JSlider(JSlider.HORIZONTAL,10,1000,500);
         slider.setMajorTickSpacing(50);
         slider.setPaintTicks(true);
         slider.setInverted(true);
@@ -148,14 +148,26 @@ public class Testor {
         	}
         });
         
+        
+        
         progressBar = new JProgressBar();
         panel.add(progressBar);
         progressBar.setMaximum(480);
-        progressBar.setValue(model.getAmountOfPresentCars());
+        
+        while (model.run) {
+        	progressBar.setValue(model.getAmountOfPresentCars());
+        }
         
         progressBar.setIndeterminate(true);
-        screen.getContentPane().setLayout(groupLayout);
         
+        
+        
+        
+        
+        
+        
+        
+        screen.getContentPane().setLayout(groupLayout);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //model.start();
