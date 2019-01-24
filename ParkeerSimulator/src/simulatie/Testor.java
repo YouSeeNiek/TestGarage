@@ -64,34 +64,6 @@ public class Testor {
         screen.setSize(1000, 600);
         screen.setResizable(false);
         
-        
-        final JButton button = new JButton("Start");
-        button.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		model.start();
-        		button.setVisible(false);
-        		button_2.setVisible(true);
-        	}
-        });
-        
-        button_2 = new JButton("Pause");
-        button_2.setVisible(false);
-        button_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		//Method to pause
-        		model.stop();
-        		button_2.setVisible(false);
-        		button.setVisible(true);
-        	}
-        });
-        
-        button_1 = new JButton("Step +1");
-        button_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		model.tick();
-        	}
-        });
-        
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         txtrSpeed = new JTextArea();
@@ -112,40 +84,69 @@ public class Testor {
         Container contentPane = screen.getContentPane();
         
         JPanel panel = new JPanel();
+        
+        JPanel panel_1 = new JPanel();
         GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(371)
-        					.addComponent(button)
-        					.addGap(5)
-        					.addComponent(button_2)
-        					.addGap(5)
-        					.addComponent(button_1))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(100)
-        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(99)
-        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap(87, Short.MAX_VALUE))
+        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(99)
+        							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 801, Short.MAX_VALUE))
+        						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+        							.addGap(100)
+        							.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(13)))
+        			.addGap(87))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(5)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(button)
-        				.addComponent(button_2)
-        				.addComponent(button_1))
+        			.addContainerGap()
+        			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
         			.addGap(5)
         			.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 469, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
         			.addGap(25))
         );
+        
+        
+        final JButton button = new JButton("Start");
+        panel_1.add(button);
+        button.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		model.start();
+        		button.setVisible(false);
+        		button_2.setVisible(true);
+        	}
+        });
+        
+        button_2 = new JButton("Pause");
+        panel_1.add(button_2);
+        button_2.setVisible(false);
+        button_2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		//Method to pause
+        		model.stop();
+        		button_2.setVisible(false);
+        		button.setVisible(true);
+        	}
+        });
+        
+        button_1 = new JButton("Step +1");
+        panel_1.add(button_1);
+        button_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		model.tick();
+        	}
+        });
         
         progressBar = new JProgressBar();
         panel.add(progressBar);
