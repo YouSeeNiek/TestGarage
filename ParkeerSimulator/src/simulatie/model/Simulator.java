@@ -29,7 +29,7 @@ public class Simulator implements Runnable{
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
+    private static int tickPause = 100;
 
     int weekDayArrivals=100;
     int weekendArrivals = 200;
@@ -88,11 +88,28 @@ public class Simulator implements Runnable{
     	Thread.currentThread().interrupt();
     }
     
+    public static void setTickPause(int i) {
+    	tickPause = i;
+    }
+    
+    public int getAmountOfPresentCars() {
+    	
+    	int emptyLots = getNumberOfOpenSpots();
+    	int i = 480 - emptyLots;
+    	
+    	
+    	return i;
+    }
+    
     public void run() {
         run = true;
         
         for (int i = 0; i < 10000; i++) {
         	tick();
+        	getAmountOfPresentCars();
+        	
+        	
+
         }
     }
 

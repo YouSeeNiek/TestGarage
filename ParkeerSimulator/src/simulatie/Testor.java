@@ -25,6 +25,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JProgressBar;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.JSeparator;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -32,6 +34,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 /**
  * 
@@ -96,7 +99,14 @@ public class Testor {
         txtrSpeed.setText("Speed");
         carparkview.add(txtrSpeed);
         
-        slider = new JSlider(JSlider.HORIZONTAL,0,1000,0);
+        slider = new JSlider(JSlider.HORIZONTAL,0,1000,500);
+        slider.setMajorTickSpacing(50);
+        slider.setPaintTicks(true);
+        slider.setInverted(true);
+        
+        Event e = new Event();
+        slider.addChangeListener(e);
+        
         carparkview.add(slider);
         
         Container contentPane = screen.getContentPane();
@@ -140,8 +150,7 @@ public class Testor {
         progressBar = new JProgressBar();
         panel.add(progressBar);
         progressBar.setMaximum(480);
-        
-        //progressBar.setValue(n);
+        progressBar.setValue(model.getAmountOfPresentCars());
         
         progressBar.setIndeterminate(true);
         screen.getContentPane().setLayout(groupLayout);
@@ -160,5 +169,15 @@ public class Testor {
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+	
+	private class Event implements ChangeListener {
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+			int value = slider.getValue();
+			Simulator.setTickPause(value);
+		}
+		
 	}
 }
