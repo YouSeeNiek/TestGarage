@@ -40,6 +40,11 @@ import java.awt.Label;
 import javax.swing.JEditorPane;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.JToggleButton;
+import javax.swing.JTable;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -58,17 +63,23 @@ public class Testor {
     private JButton button_1;
     private JButton button_2;
     private JSlider slider;
-    private JTextArea txtrSpeed;
     private static JProgressBar progressBar;
     private Label label;
     private JPanel panel_2;
+    private JPanel panel_3;
+    private JPanel panel_5;
+    private JTextField txtParkingPassCar;
+    private JTextField txtParkingPassCar_1;
+    private JTextField txtReserveringen;
+    private JTextField txtAbonnementsPlekken;
+    private JTextField txtLeeg;
 
     public Testor() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
         screen = new JFrame("Parkeer Simulator");
-        screen.setSize(1000, 600);
+        screen.setSize(1200, 700);
         screen.setResizable(false);
         
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -83,55 +94,133 @@ public class Testor {
         
         panel_2 = new JPanel();
         
-        txtrSpeed = new JTextArea();
-        txtrSpeed.setBackground(UIManager.getColor("CheckBox.background"));
-        txtrSpeed.setText("Speed");
+        JPanel panel_4 = new JPanel();
         
-        JTextArea txtrCapacity = new JTextArea();
-        txtrCapacity.setText("Capacity");
-        txtrCapacity.setBackground(SystemColor.window);
+        panel_3 = new JPanel();
+        
+        panel_5 = new JPanel();
+        
+        JLabel lblCapacity = new JLabel("Capaciteit");
+        
+        JLabel lblSnelheid = new JLabel("Snelheid");
+        
+        JPanel panel_6 = new JPanel();
         GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(291)
-        					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(476)
-        					.addComponent(txtrSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(358)
-        					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(90)
+        					.addGap(193)
         					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE))
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(468)
-        					.addComponent(txtrCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addGap(96)
+        					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 1008, GroupLayout.PREFERRED_SIZE))
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(66)
-        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap(96, Short.MAX_VALUE))
+        					.addContainerGap()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addComponent(panel_6, 0, 0, Short.MAX_VALUE)
+        						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(6)
+        							.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(406)
+        							.addComponent(lblSnelheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(232)
+        							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(298)
+        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(569)
+        					.addComponent(lblCapacity)))
+        			.addContainerGap(36, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         			.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(txtrSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(lblSnelheid)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+        					.addGap(27)
+        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(carparkview, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
         			.addGap(18)
-        			.addComponent(txtrCapacity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(lblCapacity)
         			.addGap(2)
         			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(100, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+        			.addContainerGap())
         );
+        
+        JLabel lblPlaatsen = new JLabel("Plaatsen");
+        panel_6.add(lblPlaatsen);
+        
+        txtLeeg = new JTextField();
+        panel_6.add(txtLeeg);
+        txtLeeg.setText("Leeg");
+        txtLeeg.setHorizontalAlignment(SwingConstants.CENTER);
+        txtLeeg.setForeground(Color.BLACK);
+        txtLeeg.setEditable(false);
+        txtLeeg.setColumns(10);
+        txtLeeg.setBackground(new Color(255, 255, 255));
+        
+        txtAbonnementsPlekken = new JTextField();
+        panel_6.add(txtAbonnementsPlekken);
+        txtAbonnementsPlekken.setText("Abonnees");
+        txtAbonnementsPlekken.setHorizontalAlignment(SwingConstants.CENTER);
+        txtAbonnementsPlekken.setForeground(Color.BLACK);
+        txtAbonnementsPlekken.setEditable(false);
+        txtAbonnementsPlekken.setColumns(10);
+        txtAbonnementsPlekken.setBackground(new Color(255,198,255));
+        
+        JLabel lblCars = new JLabel("Auto's");
+        panel_5.add(lblCars);
+        
+        txtParkingPassCar = new JTextField();
+        txtParkingPassCar.setHorizontalAlignment(SwingConstants.CENTER);
+        txtParkingPassCar.setText("Normaal");
+        txtParkingPassCar.setEditable(false);
+        txtParkingPassCar.setForeground(Color.WHITE);
+        txtParkingPassCar.setColumns(10);
+        txtParkingPassCar.setBackground(Color.RED);
+        panel_5.add(txtParkingPassCar);
+        
+        txtReserveringen = new JTextField();
+        txtReserveringen.setText("Reserveringen");
+        txtReserveringen.setHorizontalAlignment(SwingConstants.CENTER);
+        txtReserveringen.setForeground(Color.WHITE);
+        txtReserveringen.setEditable(false);
+        txtReserveringen.setColumns(10);
+        txtReserveringen.setBackground(Color.BLUE);
+        panel_5.add(txtReserveringen);
+        
+        txtParkingPassCar_1 = new JTextField();
+        txtParkingPassCar_1.setText("Abonnement");
+        txtParkingPassCar_1.setHorizontalAlignment(SwingConstants.CENTER);
+        txtParkingPassCar_1.setForeground(new Color(255, 255, 255));
+        txtParkingPassCar_1.setEditable(false);
+        txtParkingPassCar_1.setColumns(10);
+        txtParkingPassCar_1.setBackground(new Color(139,0,139));
+        panel_5.add(txtParkingPassCar_1);
+        
+        JSeparator separator = new JSeparator();
+        panel_5.add(separator);
         
         slider = new JSlider(JSlider.HORIZONTAL,10,1000,500);
         panel_2.add(slider);
