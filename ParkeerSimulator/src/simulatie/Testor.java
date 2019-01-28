@@ -1,5 +1,6 @@
 package simulatie;
 
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -182,7 +183,7 @@ public class Testor {
         
         txtAbonnementsPlekken = new JTextField();
         panel_6.add(txtAbonnementsPlekken);
-        txtAbonnementsPlekken.setText("Abonnees");
+        txtAbonnementsPlekken.setText("Abonnees leeg");
         txtAbonnementsPlekken.setHorizontalAlignment(SwingConstants.CENTER);
         txtAbonnementsPlekken.setForeground(Color.BLACK);
         txtAbonnementsPlekken.setEditable(false);
