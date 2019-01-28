@@ -14,7 +14,7 @@ public abstract class Car {
     private int minutesTotal;
     private boolean isPaying;
     private boolean hasToPay;
-    private boolean hasReserved;
+    private boolean hasParkingPass;
     private boolean hasReducedPrice;
 
     public Car() {
@@ -61,12 +61,12 @@ public abstract class Car {
         this.hasToPay = hasToPay;
     }
 
-    public boolean getHasReserved() {
-        return hasReserved;
+    public boolean getHasParkingPass() {
+        return hasParkingPass;
     }
 
-    public void setHasReserved(boolean hasReserved) {
-        this.hasReserved = hasReserved;
+    public void setHasParkingPass(boolean hasParkingPass) {
+        this.hasParkingPass = hasParkingPass;
     }
 
     public boolean getHasReducedPrice() {

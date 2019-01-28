@@ -7,20 +7,19 @@ import java.util.Random;
 import simulatie.AbstractView;
 import simulatie.SimulatorView;
 import simulatie.Testor;
-//
-// comments added.
+
 public class Simulator implements Runnable {
 
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
-    private int numberOfOpenReservedSpots;
+    private int numberOfOpenParkingPassSpots;
     private int numberOfPresentCars;
     private Car[][][] cars;
 
     private static final String AD_HOC = "1";
-    private static final String PASS = "2";
+    private static final String PARKINGPASS = "2";
     private static final String RESERVED = "3";
 
     private CarQueue entranceCarQueue;
@@ -36,8 +35,8 @@ public class Simulator implements Runnable {
 
     int weekDayArrivals=100;
     int weekendArrivals = 200;
-    int weekDayPassArrivals= 50;
-    int weekendPassArrivals = 5;
+    int weekDayParkingPassArrivals= 50;
+    int weekendParkingPassArrivals = 5;
     int weekDayReservedArrivals= 50;
     int weekendReservedArrivals = 5;
 
@@ -61,7 +60,7 @@ public class Simulator implements Runnable {
         this.numberOfRows = 6;
         this.numberOfPlaces = 30;
         this.numberOfOpenSpots = (numberOfFloors - 1) * numberOfRows * numberOfPlaces;
-        this.numberOfOpenReservedSpots = numberOfRows * numberOfPlaces;
+        this.numberOfOpenParkingPassSpots = numberOfRows * numberOfPlaces;
 
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         entranceCarQueue = new CarQueue();
@@ -109,20 +108,22 @@ public class Simulator implements Runnable {
         }
         
     }
-    
-    
+	
     //Calculation to get the amount of cars present in the garage
     public int getNumberOfCars() {
-    	return numberOfPresentCars = (540-(numberOfOpenSpots+numberOfOpenReservedSpots));
+    	return numberOfPresentCars = (540-(numberOfOpenSpots+numberOfOpenParkingPassSpots));
     }
-    
-    
+	
     public void tick() {
         advanceTime();
         handleExit();
         updateViews();
         //Calling the method in Testor to update progressBar with each Tick()
         Testor.setProgressValue(getNumberOfCars());
+        
+        //Set time
+        Testor.setAll(getDay(), getHour(), getMinute());
+        
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
@@ -168,21 +169,21 @@ public class Simulator implements Runnable {
     private void carsArriving(){
         int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals);
         addArrivingCars(numberOfCars, AD_HOC);
-        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
-        addArrivingCars(numberOfCars, PASS);
+        numberOfCars=getNumberOfCars(weekDayParkingPassArrivals, weekendParkingPassArrivals);
+        addArrivingCars(numberOfCars, PARKINGPASS);
         numberOfCars=getNumberOfCars(weekDayReservedArrivals, weekendReservedArrivals);
         addArrivingCars(numberOfCars, RESERVED);
     }
     
     private void carsEntering(CarQueue queue){
         int i=0;
-        while(queue.carsInQueue() > 0 && i<enterSpeed && ((queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) || (!queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) ) ) {
-            if(queue.peekCar().getHasReserved() && getNumberOfOpenReservedSpots() > 0) {
+        while(queue.carsInQueue() > 0 && i<enterSpeed && ((queue.peekCar().getHasParkingPass() && getNumberOfOpenParkingPassSpots() > 0) || (!queue.peekCar().getHasParkingPass() && getNumberOfOpenParkingPassSpots() > 0) ) ) {
+            if(queue.peekCar().getHasParkingPass() && getNumberOfOpenParkingPassSpots() > 0) {
                 Car car = queue.removeCar();
-                Location freeLocation = getFirstFreeReservedLocation();
+                Location freeLocation = getFirstFreeParkingPassLocation();
                 setCarAt(freeLocation, car);
                 i++;
-            } else if(!queue.peekCar().getHasReserved() && getNumberOfOpenSpots() > 0) {
+            } else if(!queue.peekCar().getHasParkingPass() && getNumberOfOpenSpots() > 0) {
                 Car car = queue.removeCar();
                 Location freeLocation = getFirstFreeLocation();
                 setCarAt(freeLocation, car);
@@ -251,7 +252,7 @@ public class Simulator implements Runnable {
                     entranceCarQueue.addCar(new AdHocCar());
                 }
                 break;
-            case PASS:
+            case PARKINGPASS:
                 for (int i = 0; i < numberOfCars; i++) {
                     entrancePassQueue.addCar(new ParkingPassCar());
                 }
@@ -285,8 +286,8 @@ public class Simulator implements Runnable {
         return numberOfOpenSpots;
     }
 
-    public int getNumberOfOpenReservedSpots(){
-        return numberOfOpenReservedSpots;
+    public int getNumberOfOpenParkingPassSpots(){
+        return numberOfOpenParkingPassSpots;
     }
 
     public Car getCarAt(Location location) {
@@ -304,8 +305,8 @@ public class Simulator implements Runnable {
         if (oldCar == null) {
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
-            if(car.getHasReserved()){
-                numberOfOpenReservedSpots--;
+            if(car.getHasParkingPass()){
+                numberOfOpenParkingPassSpots--;
             } else {
                 numberOfOpenSpots--;
             }
@@ -324,8 +325,8 @@ public class Simulator implements Runnable {
         }
         cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
         car.setLocation(null);
-        if(car.getHasReserved()){
-            numberOfOpenReservedSpots++;
+        if(car.getHasParkingPass()){
+            numberOfOpenParkingPassSpots++;
         } else {
             numberOfOpenSpots++;
         }
@@ -346,7 +347,7 @@ public class Simulator implements Runnable {
         return null;
     }
 
-    public Location getFirstFreeReservedLocation() {
+    public Location getFirstFreeParkingPassLocation() {
         for (int floor = 2; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -398,5 +399,19 @@ public class Simulator implements Runnable {
             return false;
         }
         return true;
+    }
+
+	
+    //Getters for the time and day.
+    public int getDay() {
+    	return day;
+    }
+    
+    public int getHour() {
+    	return hour;
+    }
+    
+    public int getMinute() {
+    	return minute;
     }
 }
