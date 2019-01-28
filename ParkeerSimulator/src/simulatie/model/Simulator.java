@@ -108,20 +108,22 @@ public class Simulator implements Runnable {
         }
         
     }
-    
-    
+	
     //Calculation to get the amount of cars present in the garage
     public int getNumberOfCars() {
     	return numberOfPresentCars = (540-(numberOfOpenSpots+numberOfOpenParkingPassSpots));
     }
-    
-    
+	
     public void tick() {
         advanceTime();
         handleExit();
         updateViews();
         //Calling the method in Testor to update progressBar with each Tick()
         Testor.setProgressValue(getNumberOfCars());
+        
+        //Set time
+        Testor.setAll(getDay(), getHour(), getMinute());
+        
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
@@ -397,5 +399,19 @@ public class Simulator implements Runnable {
             return false;
         }
         return true;
+    }
+
+	
+    //Getters for the time and day.
+    public int getDay() {
+    	return day;
+    }
+    
+    public int getHour() {
+    	return hour;
+    }
+    
+    public int getMinute() {
+    	return minute;
     }
 }
