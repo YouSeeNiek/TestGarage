@@ -16,6 +16,7 @@ public abstract class Car {
     private boolean hasToPay;
     private boolean hasReserved;
     private boolean hasReducedPrice;
+    private boolean hasPass;
 
     public Car() {
 
@@ -63,6 +64,14 @@ public abstract class Car {
 
     public boolean getHasReserved() {
         return hasReserved;
+    }
+    
+    public boolean getHasPass() {
+    	return hasPass;
+    }
+    
+    public void setHasPass(boolean hasPass) {
+    	this.hasPass = hasPass;
     }
 
     public void setHasReserved(boolean hasReserved) {

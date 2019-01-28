@@ -6,14 +6,17 @@ import java.util.Random;
 
 import simulatie.AbstractView;
 import simulatie.SimulatorView;
-
-public class Simulator implements Runnable{
+import simulatie.Testor;
+//
+// comments added.
+public class Simulator implements Runnable {
 
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private int numberOfOpenReservedSpots;
+    private int numberOfPresentCars;
     private Car[][][] cars;
 
     private static final String AD_HOC = "1";
@@ -29,7 +32,7 @@ public class Simulator implements Runnable{
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
+    private static int tickPause = 100;
 
     int weekDayArrivals=100;
     int weekendArrivals = 200;
@@ -47,11 +50,13 @@ public class Simulator implements Runnable{
     double price;
     double priceReduced;
 
-    private boolean run;
+    public boolean run;
 
     private List<AbstractView> views;
+	
     
     public Simulator() {
+    	this.numberOfPresentCars = 0;
         this.numberOfFloors = 3;
         this.numberOfRows = 6;
         this.numberOfPlaces = 30;
@@ -78,27 +83,53 @@ public class Simulator implements Runnable{
         for(AbstractView v: views) v.updateView();
     }
     
+    //Method to start the simulation
     public void start() {
+    	run = true;
         new Thread(this).start();
     }
 
-    public void run() {
-        run = true;
-        for (int i = 0; i < 10000; i++) {
-            tick();
-        }
+    //Method to pause the simulation
+    public void pause() {
+    	run = false;
     }
-
-    private void tick() {
+    
+    public static void setTickPause(int i) {
+    	tickPause = i;
+    }
+    
+    public void run() {
+        //run = true;
+        
+        for (int i = 0; i < 10000; i++) {
+        	if (!run) {
+        		return;
+        	}
+        	tick();
+        }
+        
+    }
+    
+    
+    //Calculation to get the amount of cars present in the garage
+    public int getNumberOfCars() {
+    	return numberOfPresentCars = (540-(numberOfOpenSpots+numberOfOpenReservedSpots));
+    }
+    
+    
+    public void tick() {
         advanceTime();
         handleExit();
         updateViews();
+        //Calling the method in Testor to update progressBar with each Tick()
+        Testor.setProgressValue(getNumberOfCars());
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         handleEntrance();
+        
     }
 
     private void advanceTime(){
