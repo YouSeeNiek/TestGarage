@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import org.jfree.chart.*;
+
 import javax.swing.JFrame;
 
 import simulatie.SimulatorController;
@@ -127,7 +129,7 @@ public class Testor {
         						.addGroup(groupLayout.createSequentialGroup()
         							.addGap(6)
         							.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGap(7)
         							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
         						.addGroup(groupLayout.createSequentialGroup()
         							.addGap(406)
@@ -137,37 +139,39 @@ public class Testor {
         							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
         						.addGroup(groupLayout.createSequentialGroup()
         							.addGap(298)
-        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))))
+        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)))
+        					.addPreferredGap(ComponentPlacement.RELATED))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(569)
         					.addComponent(lblCapacity)))
-        			.addContainerGap(36, Short.MAX_VALUE))
+        			.addContainerGap(23, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(lblSnelheid)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
         				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
         					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
         					.addGap(27)
         					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(carparkview, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+        				.addComponent(carparkview, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
         			.addGap(18)
         			.addComponent(lblCapacity)
         			.addGap(2)
         			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
         			.addContainerGap())
         );
+        panel_3.setLayout(new BorderLayout(0, 0));
         
         JLabel lblPlaatsen = new JLabel("Plaatsen");
         panel_6.add(lblPlaatsen);
@@ -240,6 +244,8 @@ public class Testor {
         		button_2.setVisible(true);
         		
         	}
+        	
+        	
         });
         
         button_2 = new JButton("Pause");
@@ -261,6 +267,8 @@ public class Testor {
         		model.tick();
         	}
         });
+        
+        
        
        
         
@@ -304,5 +312,6 @@ public class Testor {
 			Simulator.setTickPause(value);
 		}
 		
+			
 	}
-}
+		}
