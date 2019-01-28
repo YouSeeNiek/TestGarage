@@ -7,7 +7,8 @@ import java.util.Random;
 import simulatie.AbstractView;
 import simulatie.SimulatorView;
 import simulatie.Testor;
-
+//
+// comments added.
 public class Simulator implements Runnable {
 
     private int numberOfFloors;
