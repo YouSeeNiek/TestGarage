@@ -19,7 +19,6 @@ public class ParkingPassCar extends Car {
         this.setHasToPay(false);
         this.setHasParkingPass(true);
         this.setHasReducedPrice(true);
-        this.setHasPass(true);
     }
 
     public Color getColor(){

@@ -20,7 +20,6 @@ public class AdHocCar extends Car {
         this.setHasToPay(true);
         this.setHasParkingPass(false);
         this.setHasReducedPrice(false);
-        this.setHasPass(false);
         ;
     }
 
