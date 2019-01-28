@@ -18,7 +18,7 @@ public class AdHocCar extends Car {
         this.setMinutesLeft(stayMinutes);
         this.setMinutesTotal(stayMinutes);
         this.setHasToPay(true);
-        this.setHasReserved(false);
+        this.setHasParkingPass(false);
         this.setHasReducedPrice(false);
         this.setHasPass(false);
         ;
