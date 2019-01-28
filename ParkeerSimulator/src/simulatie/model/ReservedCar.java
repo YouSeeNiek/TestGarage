@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public class ReservedCar extends Car {
-    private static final Color COLOR=Color.decode("#8b008b");
+    private static final Color COLOR=Color.BLUE;
 
     public ReservedCar() {
         Random random = new Random();
@@ -17,7 +17,7 @@ public class ReservedCar extends Car {
         this.setMinutesLeft(stayMinutes);
         this.setMinutesTotal(stayMinutes);
         this.setHasToPay(true);
-        this.setHasReserved(true);
+        this.setHasParkingPass(false);
         this.setHasReducedPrice(false);
     }
 
