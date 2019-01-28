@@ -6,8 +6,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import org.jfree.chart.*;
-
 import javax.swing.JFrame;
 
 import simulatie.SimulatorController;
@@ -76,6 +74,14 @@ public class Testor {
     private JTextField txtReserveringen;
     private JTextField txtAbonnementsPlekken;
     private JTextField txtLeeg;
+    private static JLabel dagLabel;
+    private static int dag;
+    private static int uur;
+    private static int minuut;
+    private JPanel panel_8;
+    private static JLabel lblTijd;
+    private JLabel lblLeeg;
+    
 
     public Testor() {
         model = new Simulator();
@@ -108,6 +114,17 @@ public class Testor {
         JLabel lblSnelheid = new JLabel("Snelheid");
         
         JPanel panel_6 = new JPanel();
+        
+        JPanel panel_7 = new JPanel();
+        
+        panel_8 = new JPanel();
+        
+        lblTijd = new JLabel("Tijd:");
+        panel_8.add(lblTijd);
+        
+        lblTijd = new JLabel("");
+        panel_8.add(lblTijd);
+        
         GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -127,51 +144,80 @@ public class Testor {
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(6)
-        							.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(7)
-        							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createSequentialGroup()
         							.addGap(406)
         							.addComponent(lblSnelheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(232)
-        							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(298)
-        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)))
-        					.addPreferredGap(ComponentPlacement.RELATED))
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addGap(6)
+        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        									.addGroup(groupLayout.createSequentialGroup()
+        										.addGap(298)
+        										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
+        									.addGroup(groupLayout.createSequentialGroup()
+        										.addGap(232)
+        										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)))
+        								.addPreferredGap(ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+        								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        									.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+        									.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))))))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGap(569)
         					.addComponent(lblCapacity)))
-        			.addContainerGap(23, Short.MAX_VALUE))
+        			.addContainerGap(36, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(lblSnelheid)
-        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
-        				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblSnelheid))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(groupLayout.createSequentialGroup()
         					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
         					.addGap(27)
         					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(carparkview, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+        				.addComponent(carparkview, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
         			.addGap(18)
         			.addComponent(lblCapacity)
         			.addGap(2)
         			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
         			.addContainerGap())
         );
-        panel_3.setLayout(new BorderLayout(0, 0));
+        
+        JLabel lblDay = new JLabel("Dag:");
+        panel_7.add(lblDay);
+        
+        
+        
+        dagLabel = new JLabel("");
+    	panel_7.add(dagLabel);
+    	
+    	
+        
+        
+        
+				
+        
+        
+        
+        
         
         JLabel lblPlaatsen = new JLabel("Plaatsen");
         panel_6.add(lblPlaatsen);
@@ -244,8 +290,6 @@ public class Testor {
         		button_2.setVisible(true);
         		
         	}
-        	
-        	
         });
         
         button_2 = new JButton("Pause");
@@ -267,8 +311,6 @@ public class Testor {
         		model.tick();
         	}
         });
-        
-        
        
        
         
@@ -290,7 +332,9 @@ public class Testor {
         model.tick();
     }
     
-    //Method to update the progressBar
+    
+    
+	//Method to update the progressBar
     public static void setProgressValue(int numberOfCars) {
     	progressBar.setValue(numberOfCars);
     }
@@ -312,6 +356,50 @@ public class Testor {
 			Simulator.setTickPause(value);
 		}
 		
-			
 	}
+
+	//Method to update the day and time..
+	public static void setAll(int day, int hour, int minute) {
+		dag = day;
+		uur = hour;
+		minuut = minute;
+		
+		switch (dag) {
+		case 0:
+			dagLabel.setText("Maandag");
+			break;	
+		case 1:
+			dagLabel.setText("Dinsdag");
+			break;	
+		case 2:
+			dagLabel.setText("Woensdag");
+			break;	
+		case 3:
+			dagLabel.setText("Donderdag");
+			break;
+		case 4:
+			dagLabel.setText("Vrijdag");
+			break;
+		case 5:
+			dagLabel.setText("Zaterdag");
+			break;
+		case 6:
+			dagLabel.setText("Zondag");
+			break;
 		}
+		String str1 = Integer.toString(uur);
+		String str2 = Integer.toString(minuut);
+		
+		if (uur < 10) {
+			str1 = "0" + Integer.toString(uur);
+		} 
+		
+		if (minuut < 10) {
+			str2 = "0" + Integer.toString(minuut);
+		} 
+		
+		String concat = str1+":"+str2;
+		lblTijd.setText(concat);
+		
+	}
+}
