@@ -129,8 +129,8 @@ public class Simulator implements Runnable {
         //Set number of occupied spots
         Testor.setNumberOfOccupiedSpots((540 - getNumberOfOpenTotalSpots()));
         
+        //Set cumulative profit
         Testor.setCumulativeProfit(turnoverTotal);
-        System.out.println(turnoverTotal);
         
         try {
             Thread.sleep(tickPause);
