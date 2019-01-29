@@ -124,6 +124,13 @@ public class Simulator implements Runnable {
         //Set time
         Testor.setAll(getDay(), getHour(), getMinute());
         
+        //Set number of open spots
+        Testor.setNumberOfOpenTotalSpots(getNumberOfOpenTotalSpots());
+        
+        //Set number of occupied spots
+        Testor.setNumberOfOccupiedSpots((540 - getNumberOfOpenTotalSpots()));
+        
+        
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {
@@ -288,6 +295,10 @@ public class Simulator implements Runnable {
 
     public int getNumberOfOpenParkingPassSpots(){
         return numberOfOpenParkingPassSpots;
+    }
+    
+    public int getNumberOfOpenTotalSpots(){
+        return numberOfOpenSpots + numberOfOpenParkingPassSpots;
     }
 
     public Car getCarAt(Location location) {
