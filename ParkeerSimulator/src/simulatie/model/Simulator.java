@@ -30,19 +30,19 @@ public class Simulator implements Runnable {
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
-
+    
     private static int tickPause = 100;
 
-    int weekDayArrivals=100;
+    int weekDayArrivals= 100;
     int weekendArrivals = 200;
     int weekDayParkingPassArrivals= 50;
     int weekendParkingPassArrivals = 5;
     int weekDayReservedArrivals= 50;
     int weekendReservedArrivals = 5;
-
+    
     int enterSpeed = 3;
     int paymentSpeed = 7;
-    int exitSpeed = 5;
+    int exitSpeed = 3;
 
     double turnoverTotal;
 
@@ -106,7 +106,6 @@ public class Simulator implements Runnable {
         	}
         	tick();
         }
-        
     }
 	
     //Calculation to get the amount of cars present in the garage
@@ -130,6 +129,8 @@ public class Simulator implements Runnable {
         //Set number of occupied spots
         Testor.setNumberOfOccupiedSpots((540 - getNumberOfOpenTotalSpots()));
         
+        Testor.setCumulativeProfit(turnoverTotal);
+        System.out.println(turnoverTotal);
         
         try {
             Thread.sleep(tickPause);
@@ -137,7 +138,6 @@ public class Simulator implements Runnable {
             e.printStackTrace();
         }
         handleEntrance();
-        
     }
 
     private void advanceTime(){
@@ -153,7 +153,6 @@ public class Simulator implements Runnable {
         while (day > 6) {
             day -= 7;
         }
-
     }
 
     private void handleEntrance(){
