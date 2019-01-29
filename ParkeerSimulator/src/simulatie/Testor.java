@@ -46,6 +46,7 @@ import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -81,6 +82,16 @@ public class Testor {
     private JPanel panel_8;
     private static JLabel lblTijd;
     private JLabel lblLeeg;
+    private JPanel panel_9;
+    private JLabel lblLegePlekken;
+    private JLabel label_2;
+    private static JLabel openSpotsLabel;
+    private JPanel panel_10;
+    private JLabel lblBezettePlekken;
+    private static JLabel occupiedSpotsLabel;
+    private JLabel label_4;
+    private JPanel panel_4;
+    private JLabel show_image;
     
 
     public Testor() {
@@ -103,8 +114,6 @@ public class Testor {
         
         panel_2 = new JPanel();
         
-        JPanel panel_4 = new JPanel();
-        
         panel_3 = new JPanel();
         
         panel_5 = new JPanel();
@@ -115,91 +124,95 @@ public class Testor {
         
         JPanel panel_6 = new JPanel();
         
-        JPanel panel_7 = new JPanel();
+        panel_4 = new JPanel();
         
-        panel_8 = new JPanel();
-        
-        lblTijd = new JLabel("Tijd:");
-        panel_8.add(lblTijd);
-        
-        lblTijd = new JLabel("");
-        panel_8.add(lblTijd);
+        show_image = new JLabel("");
+        show_image.setIcon(new ImageIcon(Testor.class.getResource("/img/logo1-01.png")));
         
         GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
         groupLayout.setHorizontalGroup(
+        	groupLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(groupLayout.createSequentialGroup()
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(12)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED))
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED))
+        							.addComponent(show_image, Alignment.TRAILING)
+        							.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        								.addComponent(panel_5, 0, 0, Short.MAX_VALUE)
+        								.addGap(23))))
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(227)
+        									.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(293)
+        									.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE)))
+        							.addPreferredGap(ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
+        							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(4)
+        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 818, GroupLayout.PREFERRED_SIZE)
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGap(18)
+        									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 826, GroupLayout.PREFERRED_SIZE)
+        										.addGroup(groupLayout.createSequentialGroup()
+        											.addGap(382)
+        											.addComponent(lblCapacity)))))))
+        					.addPreferredGap(ComponentPlacement.RELATED))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(569)
+        					.addComponent(lblSnelheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap())
+        );
+        groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(193)
-        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(96)
-        					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 1008, GroupLayout.PREFERRED_SIZE))
+        					.addGap(14)
+        					.addComponent(show_image, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addContainerGap()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(panel_6, 0, 0, Short.MAX_VALUE)
-        						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED)
         					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
         						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(406)
-        							.addComponent(lblSnelheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGap(6)
-        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(298)
-        										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(232)
-        										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)))
-        								.addPreferredGap(ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
-        								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        									.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-        									.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))))))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(569)
-        					.addComponent(lblCapacity)))
-        			.addContainerGap(36, Short.MAX_VALUE))
-        );
-        groupLayout.setVerticalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(lblSnelheid))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        							.addGap(18)
+        							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblSnelheid)))))
+        			.addPreferredGap(ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
         			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(groupLayout.createSequentialGroup()
         					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-        					.addGap(27)
-        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-        				.addComponent(carparkview, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
-        			.addGap(18)
-        			.addComponent(lblCapacity)
-        			.addGap(2)
-        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-        			.addContainerGap())
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+        					.addGap(29)
+        					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 316, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addComponent(lblCapacity)
+        					.addGap(2)
+        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(16))
         );
+        
+        JPanel panel_7 = new JPanel();
+        panel_3.add(panel_7);
         
         JLabel lblDay = new JLabel("Dag:");
         panel_7.add(lblDay);
@@ -207,7 +220,42 @@ public class Testor {
         
         
         dagLabel = new JLabel("");
-    	panel_7.add(dagLabel);
+        panel_7.add(dagLabel);
+        
+        panel_8 = new JPanel();
+        panel_3.add(panel_8);
+        
+        lblTijd = new JLabel("Tijd:");
+        panel_8.add(lblTijd);
+        
+        lblTijd = new JLabel("");
+        panel_8.add(lblTijd);
+        
+        panel_9 = new JPanel();
+        panel_4.add(panel_9);
+        
+        lblLegePlekken = new JLabel("Lege plekken:");
+        lblLegePlekken.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_9.add(lblLegePlekken);
+        
+        openSpotsLabel = new JLabel("");
+        panel_9.add(openSpotsLabel);
+        
+        label_2 = new JLabel("");
+        panel_9.add(label_2);
+        
+        panel_10 = new JPanel();
+        panel_4.add(panel_10);
+        
+        lblBezettePlekken = new JLabel("Bezette plekken:");
+        lblBezettePlekken.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_10.add(lblBezettePlekken);
+        
+        occupiedSpotsLabel = new JLabel("");
+        panel_10.add(occupiedSpotsLabel);
+        
+        label_4 = new JLabel("");
+        panel_10.add(label_4);
     	
     	
         
@@ -402,4 +450,28 @@ public class Testor {
 		lblTijd.setText(concat);
 		
 	}
+
+	//Set number of open spots
+	public static void setNumberOfOpenTotalSpots(int numberOfOpenTotalSpots) {
+		// TODO Auto-generated method stub
+				String str3 = Integer.toString(numberOfOpenTotalSpots);
+				openSpotsLabel.setText(str3);
+	}
+	
+	//Set number of occupied spots
+	public static void setNumberOfOccupiedSpots(int numberOfOccupiedSpots) {
+		// TODO Auto-generated method stub
+				String str4 = Integer.toString(numberOfOccupiedSpots);
+				occupiedSpotsLabel.setText(str4);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
