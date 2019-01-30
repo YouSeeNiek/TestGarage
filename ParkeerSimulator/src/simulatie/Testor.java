@@ -69,7 +69,6 @@ public class Testor {
     private static JProgressBar progressBar;
     private Label label;
     private JPanel panel_2;
-    private JPanel panel_3;
     private JPanel panel_5;
     private JTextField txtParkingPassCar;
     private JTextField txtParkingPassCar_1;
@@ -114,13 +113,9 @@ public class Testor {
         
         Container contentPane = screen.getContentPane();
         
-        JPanel panel = new JPanel();
-        
         JPanel panel_1 = new JPanel();
         
         panel_2 = new JPanel();
-        
-        panel_3 = new JPanel();
         
         panel_5 = new JPanel();
         
@@ -148,89 +143,7 @@ public class Testor {
         label_5 = new JLabel("");
         panel_13.add(label_5);
         
-        GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
-        groupLayout.setHorizontalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(12)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED))
-        				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        					.addGroup(groupLayout.createSequentialGroup()
-        						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-        						.addPreferredGap(ComponentPlacement.RELATED))
-        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(show_image)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addComponent(panel_5, 0, 0, Short.MAX_VALUE)
-        							.addGap(23)))))
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(293)
-        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(323)
-        							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
-        					.addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-        					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(154)
-        					.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(22)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 826, GroupLayout.PREFERRED_SIZE)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(382)
-        							.addComponent(lblCapacity))))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(4)
-        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 818, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap())
-        );
-        groupLayout.setVerticalGroup(
-        	groupLayout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(14)
-        					.addComponent(show_image, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        							.addGap(12)
-        							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-        						.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))))
-        			.addGap(50)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-        					.addGap(29)
-        					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addComponent(lblCapacity)
-        					.addGap(2)
-        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
-        			.addGap(16))
-        );
-        panel_11.setLayout(new GridLayout(0, 1, 0, 0));
-        panel_3.setLayout(new GridLayout(0, 2, 0, 0));
-        
         JPanel panel_7 = new JPanel();
-        panel_3.add(panel_7);
         
         JLabel lblDay = new JLabel("Dag:");
         panel_7.add(lblDay);
@@ -241,13 +154,106 @@ public class Testor {
         panel_7.add(dagLabel);
         
         panel_8 = new JPanel();
-        panel_3.add(panel_8);
         
         lblTijd = new JLabel("Tijd:");
         panel_8.add(lblTijd);
         
         lblTijd = new JLabel("");
         panel_8.add(lblTijd);
+        
+        
+         
+         progressBar = new JProgressBar();
+         progressBar.setStringPainted(true);
+         progressBar.setToolTipText("");
+         progressBar.setMaximum(540);
+         progressBar.setMinimum(0);
+        
+        GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
+        groupLayout.setHorizontalGroup(
+        	groupLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(groupLayout.createSequentialGroup()
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        					.addGroup(groupLayout.createSequentialGroup()
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addGap(12)
+        								.addComponent(show_image))
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addContainerGap()
+        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        									.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+        									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+        										.addComponent(panel_5, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+        										.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))))
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        									.addGroup(groupLayout.createSequentialGroup()
+        										.addGap(293)
+        										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
+        									.addGroup(groupLayout.createSequentialGroup()
+        										.addGap(323)
+        										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 818, GroupLayout.PREFERRED_SIZE)))
+        						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        					.addGroup(groupLayout.createSequentialGroup()
+        						.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addGap(323)))
+        				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(lblCapacity)
+        					.addGap(364)))
+        			.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addGap(208))
+        );
+        groupLayout.setVerticalGroup(
+        	groupLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(groupLayout.createSequentialGroup()
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(14)
+        					.addComponent(show_image, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addContainerGap()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+        									.addPreferredGap(ComponentPlacement.UNRELATED)
+        									.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+        									.addPreferredGap(ComponentPlacement.RELATED)
+        									.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+        								.addGroup(groupLayout.createSequentialGroup()
+        									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        										.addGroup(groupLayout.createSequentialGroup()
+        											.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        											.addGap(12)
+        											.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+        										.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+        									.addPreferredGap(ComponentPlacement.RELATED)
+        									.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblCapacity, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        							.addGap(57)))))
+        			.addGap(90))
+        );
+        panel_11.setLayout(new GridLayout(0, 1, 0, 0));
         
         panel_9 = new JPanel();
         panel_4.add(panel_9);
@@ -380,15 +386,6 @@ public class Testor {
         		model.tick();
         	}
         });
-       
-       
-        
-        progressBar = new JProgressBar();
-        progressBar.setStringPainted(true);
-        progressBar.setToolTipText("");
-        panel.add(progressBar);
-        progressBar.setMaximum(540);
-        progressBar.setMinimum(0);
        
         
         

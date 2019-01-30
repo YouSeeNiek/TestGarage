@@ -33,16 +33,16 @@ public class Simulator implements Runnable {
     
     private static int tickPause = 100;
 
-    int weekDayArrivals= 100;
-    int weekendArrivals = 200;
-    int weekDayParkingPassArrivals= 50;
-    int weekendParkingPassArrivals = 5;
-    int weekDayReservedArrivals= 50;
-    int weekendReservedArrivals = 5;
+    int weekDayArrivals= 30;
+    int weekendArrivals = 140;
+    int weekDayParkingPassArrivals= 75;
+    int weekendParkingPassArrivals = 20;
+    int weekDayReservedArrivals= 15;
+    int weekendReservedArrivals = 40;
     
-    int enterSpeed = 3;
-    int paymentSpeed = 7;
-    int exitSpeed = 3;
+    int enterSpeed = 2;
+    int paymentSpeed = 5;
+    int exitSpeed = 2;
 
     double turnoverTotal;
 
@@ -131,6 +131,12 @@ public class Simulator implements Runnable {
         
         //Set cumulative profit
         Testor.setCumulativeProfit(turnoverTotal);
+        
+        if (day==6 && hour == 23 && minute == 59) {
+        	pause();
+        	turnoverTotal = 0;
+        	
+        }
         
         try {
             Thread.sleep(tickPause);
