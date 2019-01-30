@@ -29,6 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.swtchart.Chart;
+
 import javax.swing.JSeparator;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -48,6 +51,9 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
+import java.awt.Canvas;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -97,14 +103,16 @@ public class Testor {
     private JPanel panel_13;
     private JLabel lblProfit_1;
     private JLabel label_5;
+    private PieChartCars piechart;
     
 
     public Testor() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
+        carparkview.setBounds(169, 118, 804, 360);
         screen = new JFrame("Parkeer Simulator");
-        screen.setSize(1200, 700);
+        screen.setSize(1200, 800);
         screen.setResizable(false);
         
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -114,26 +122,35 @@ public class Testor {
         Container contentPane = screen.getContentPane();
         
         JPanel panel_1 = new JPanel();
+        panel_1.setBounds(460, 6, 279, 34);
         
         panel_2 = new JPanel();
+        panel_2.setBounds(491, 52, 218, 60);
         
         panel_5 = new JPanel();
+        panel_5.setBounds(34, 177, 134, 115);
         
         JLabel lblCapacity = new JLabel("Capaciteit");
+        lblCapacity.setBounds(568, 484, 63, 21);
         
         JPanel panel_6 = new JPanel();
+        panel_6.setBounds(34, 304, 134, 101);
         
         panel_4 = new JPanel();
+        panel_4.setBounds(34, 411, 134, 67);
         
         show_image = new JLabel("");
+        show_image.setBounds(12, 14, 156, 42);
         show_image.setIcon(new ImageIcon(Testor.class.getResource("/img/logo1-01.png")));
         
         panel_11 = new JPanel();
+        panel_11.setBounds(1223, 6, 0, 682);
         
         lblProfit = new JLabel("");
         lblProfit.setHorizontalAlignment(SwingConstants.LEFT);
         
         panel_13 = new JPanel();
+        panel_13.setBounds(747, 6, 78, 75);
         
         lblProfit_1 = new JLabel("Profit:");
         lblProfit_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -144,6 +161,7 @@ public class Testor {
         panel_13.add(label_5);
         
         JPanel panel_7 = new JPanel();
+        panel_7.setBounds(831, 6, 68, 75);
         
         JLabel lblDay = new JLabel("Dag:");
         panel_7.add(lblDay);
@@ -154,6 +172,7 @@ public class Testor {
         panel_7.add(dagLabel);
         
         panel_8 = new JPanel();
+        panel_8.setBounds(905, 6, 68, 75);
         
         lblTijd = new JLabel("Tijd:");
         panel_8.add(lblTijd);
@@ -161,98 +180,17 @@ public class Testor {
         lblTijd = new JLabel("");
         panel_8.add(lblTijd);
         
-        
+       
          
          progressBar = new JProgressBar();
+         progressBar.setBounds(527, 511, 146, 20);
          progressBar.setStringPainted(true);
          progressBar.setToolTipText("");
          progressBar.setMaximum(540);
          progressBar.setMinimum(0);
         
-        GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
-        groupLayout.setHorizontalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        					.addGroup(groupLayout.createSequentialGroup()
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGap(12)
-        								.addComponent(show_image))
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addContainerGap()
-        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        									.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-        									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-        										.addComponent(panel_5, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-        										.addComponent(panel_6, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)))))
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(293)
-        										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(323)
-        										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 818, GroupLayout.PREFERRED_SIZE)))
-        						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        					.addGroup(groupLayout.createSequentialGroup()
-        						.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addGap(323)))
-        				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(lblCapacity)
-        					.addGap(364)))
-        			.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        			.addGap(208))
-        );
-        groupLayout.setVerticalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(14)
-        					.addComponent(show_image, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(panel_11, GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-        									.addPreferredGap(ComponentPlacement.UNRELATED)
-        									.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        										.addGroup(groupLayout.createSequentialGroup()
-        											.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        											.addGap(12)
-        											.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
-        										.addComponent(panel_13, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-        										.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-        										.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, 360, GroupLayout.PREFERRED_SIZE)))
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblCapacity, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(57)))))
-        			.addGap(90))
-        );
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.setBounds(1018, 6, 21, 21);
         panel_11.setLayout(new GridLayout(0, 1, 0, 0));
         
         panel_9 = new JPanel();
@@ -386,12 +324,27 @@ public class Testor {
         		model.tick();
         	}
         });
-       
-        
-        
-        screen.getContentPane().setLayout(groupLayout);
+        screen.getContentPane().setLayout(null);
+        screen.getContentPane().add(panel_5);
+        screen.getContentPane().add(panel_6);
+        screen.getContentPane().add(panel_4);
+        screen.getContentPane().add(show_image);
+        screen.getContentPane().add(panel_1);
+        screen.getContentPane().add(panel_2);
+        screen.getContentPane().add(panel_13);
+        screen.getContentPane().add(panel_7);
+        screen.getContentPane().add(panel_8);
+        screen.getContentPane().add(carparkview);
+        screen.getContentPane().add(tabbedPane);
+        screen.getContentPane().add(lblCapacity);
+        screen.getContentPane().add(progressBar);
+        screen.getContentPane().add(panel_11);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        
+        
         //model.start();
         
         //Makes sure the parking spots are visible when starting up

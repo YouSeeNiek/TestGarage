@@ -117,6 +117,7 @@ public class Simulator implements Runnable {
         advanceTime();
         handleExit();
         updateViews();
+        
         //Calling the method in Testor to update progressBar with each Tick()
         Testor.setProgressValue(getNumberOfCars());
         
@@ -132,10 +133,11 @@ public class Simulator implements Runnable {
         //Set cumulative profit
         Testor.setCumulativeProfit(turnoverTotal);
         
+        //System.out.println(CarQueue.carsInQueue());
+        
         if (day==6 && hour == 23 && minute == 59) {
         	pause();
         	turnoverTotal = 0;
-        	
         }
         
         try {
