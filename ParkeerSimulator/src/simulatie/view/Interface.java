@@ -10,7 +10,8 @@ import javax.swing.JFrame;
 
 import simulatie.controller.SimulatorController;
 import simulatie.model.Simulator;
-
+import simulatie.view.AbstractView;
+import simulatie.view.SimulatorView;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.AbstractAction;
@@ -28,6 +29,17 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+//import org.swtchart.Chart;
+
 import javax.swing.JSeparator;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -45,15 +57,11 @@ import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DatasetChangeEvent;
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DefaultPieDataset;
+import javax.swing.ImageIcon;
+import java.awt.GridLayout;
+import java.awt.Canvas;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -63,7 +71,7 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 
 public class Interface {
-	private JFrame screen;
+    private JFrame screen;
     private Simulator model;
     private AbstractView carparkview;
 
@@ -75,7 +83,6 @@ public class Interface {
     private static JProgressBar progressBar;
     private Label label;
     private JPanel panel_2;
-    private JPanel panel_3;
     private JPanel panel_5;
     private JTextField txtParkingPassCar;
     private JTextField txtParkingPassCar_1;
@@ -89,14 +96,31 @@ public class Interface {
     private JPanel panel_8;
     private static JLabel lblTijd;
     private JLabel lblLeeg;
+    private JPanel panel_9;
+    private JLabel lblLegePlekken;
+    private JLabel label_2;
+    private static JLabel openSpotsLabel;
+    private JPanel panel_10;
+    private JLabel lblBezettePlekken;
+    private static JLabel occupiedSpotsLabel;
+    private JLabel label_4;
+    private JPanel panel_4;
+    private JLabel show_image;
+    private JPanel panel_11;
+    private static JLabel lblProfit;
+    private JPanel panel_13;
+    private JLabel lblProfit_1;
+    private JLabel label_5;
+    //private PieChartCars piechart;
     
 
     public Interface() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
+        carparkview.setBounds(169, 118, 804, 360);
         screen = new JFrame("Parkeer Simulator");
-        screen.setSize(1200, 700);
+        screen.setSize(1200, 800);
         screen.setResizable(false);
         
         carparkview.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -105,109 +129,47 @@ public class Interface {
         
         Container contentPane = screen.getContentPane();
         
-        JPanel panel = new JPanel();
-        
         JPanel panel_1 = new JPanel();
+        panel_1.setBounds(460, 6, 279, 34);
         
         panel_2 = new JPanel();
-        
-        JPanel panel_4 = new JPanel();
-        
-        panel_3 = new JPanel();
+        panel_2.setBounds(491, 52, 218, 60);
         
         panel_5 = new JPanel();
+        panel_5.setBounds(34, 177, 134, 115);
         
         JLabel lblCapacity = new JLabel("Capaciteit");
-        
-        JLabel lblSnelheid = new JLabel("Snelheid");
+        lblCapacity.setBounds(568, 484, 63, 21);
         
         JPanel panel_6 = new JPanel();
+        panel_6.setBounds(34, 304, 134, 101);
+        
+        panel_4 = new JPanel();
+        panel_4.setBounds(34, 411, 134, 67);
+        
+        show_image = new JLabel("");
+        show_image.setBounds(12, 14, 156, 42);
+        show_image.setIcon(new ImageIcon(Interface.class.getResource("/img/logo1-01.png")));
+        
+        panel_11 = new JPanel();
+        panel_11.setBounds(1223, 6, 0, 682);
+        
+        lblProfit = new JLabel("");
+        lblProfit.setHorizontalAlignment(SwingConstants.LEFT);
+        
+        panel_13 = new JPanel();
+        panel_13.setBounds(747, 6, 78, 75);
+        
+        lblProfit_1 = new JLabel("Profit:");
+        lblProfit_1.setHorizontalAlignment(SwingConstants.CENTER);
+        panel_13.add(lblProfit_1);
+        panel_13.add(lblProfit);
+        
+        label_5 = new JLabel("");
+        panel_13.add(label_5);
         
         JPanel panel_7 = new JPanel();
-        
-        panel_8 = new JPanel();
-        
-        lblTijd = new JLabel("Tijd:");
-        panel_8.add(lblTijd);
-        
-        lblTijd = new JLabel("");
-        panel_8.add(lblTijd);
-        
-        GroupLayout groupLayout = new GroupLayout(screen.getContentPane());
-        groupLayout.setHorizontalGroup(
-        	groupLayout.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(193)
-        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 814, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(96)
-        					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 1008, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        						.addComponent(panel_6, 0, 0, Short.MAX_VALUE)
-        						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(406)
-        							.addComponent(lblSnelheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGap(6)
-        								.addComponent(carparkview, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
-        							.addGroup(groupLayout.createSequentialGroup()
-        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(298)
-        										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 279, GroupLayout.PREFERRED_SIZE))
-        									.addGroup(groupLayout.createSequentialGroup()
-        										.addGap(232)
-        										.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 410, GroupLayout.PREFERRED_SIZE)))
-        								.addPreferredGap(ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
-        								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        									.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-        									.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))))))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(569)
-        					.addComponent(lblCapacity)))
-        			.addContainerGap(36, Short.MAX_VALUE))
-        );
-        groupLayout.setVerticalGroup(
-        	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(lblSnelheid))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(panel_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-        					.addGap(27)
-        					.addComponent(panel_6, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-        				.addComponent(carparkview, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
-        			.addGap(18)
-        			.addComponent(lblCapacity)
-        			.addGap(2)
-        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-        			.addContainerGap())
-        );
+        panel_7.setBounds(831, 6, 68, 75);
         
         JLabel lblDay = new JLabel("Dag:");
         panel_7.add(lblDay);
@@ -215,18 +177,69 @@ public class Interface {
         
         
         dagLabel = new JLabel("");
-    	panel_7.add(dagLabel);
+        panel_7.add(dagLabel);
+        
+        panel_8 = new JPanel();
+        panel_8.setBounds(905, 6, 68, 75);
+        
+        lblTijd = new JLabel("Tijd:");
+        panel_8.add(lblTijd);
+        
+        lblTijd = new JLabel("");
+        panel_8.add(lblTijd);
+        
+       
+         
+         progressBar = new JProgressBar();
+         progressBar.setBounds(527, 511, 146, 20);
+         progressBar.setStringPainted(true);
+         progressBar.setToolTipText("");
+         progressBar.setMaximum(540);
+         progressBar.setMinimum(0);
+        
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.setBounds(1018, 6, 21, 21);
+        panel_11.setLayout(new GridLayout(0, 1, 0, 0));
+        
+        panel_9 = new JPanel();
+        panel_4.add(panel_9);
+        
+        lblLegePlekken = new JLabel("Lege plekken:");
+        lblLegePlekken.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_9.add(lblLegePlekken);
+        
+        openSpotsLabel = new JLabel("");
+        panel_9.add(openSpotsLabel);
+        
+        label_2 = new JLabel("");
+        panel_9.add(label_2);
+        
+        panel_10 = new JPanel();
+        panel_4.add(panel_10);
+        
+        lblBezettePlekken = new JLabel("Bezette plekken:");
+        lblBezettePlekken.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_10.add(lblBezettePlekken);
+        
+        occupiedSpotsLabel = new JLabel("");
+        panel_10.add(occupiedSpotsLabel);
+        
+        label_4 = new JLabel("");
+        panel_10.add(label_4);
     	
     	
-    	DefaultPieDataset pieDataset = new DefaultPieDataset();
-        pieDataset.setValue("Car", new Integer(Simulator.getAantalAdHoc()));
-        pieDataset.setValue("Passholder", new Integer(Simulator.getAantalPass()));
-        pieDataset.setValue("Reserved", new Integer(Simulator.getAantalReserved()));
+        
+        
+        
+        DefaultPieDataset pieDataset = new DefaultPieDataset();
+        pieDataset.setValue("Car", new Integer (10));        
+        pieDataset.setValue("Passholder", new Integer (20)); 
+        pieDataset.setValue("Reserved", new Integer (30)); 
         JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
         
         ChartFrame frame = new ChartFrame("Pie Chart", chart);
         frame.setVisible(true);
-        frame.setSize(400, 500);
+        frame.setSize(400, 500);		
         
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -298,7 +311,10 @@ public class Interface {
         JSeparator separator = new JSeparator();
         panel_5.add(separator);
         
-        slider = new JSlider(JSlider.HORIZONTAL,1,1000,500);
+        JLabel lblSnelheid = new JLabel("Snelheid");
+        panel_2.add(lblSnelheid);
+        
+        slider = new JSlider(JSlider.HORIZONTAL,1,400,400);
         panel_2.add(slider);
         slider.setMajorTickSpacing(50);
         slider.setPaintTicks(true);
@@ -336,21 +352,27 @@ public class Interface {
         		model.tick();
         	}
         });
-       
-       
-        
-        progressBar = new JProgressBar();
-        progressBar.setStringPainted(true);
-        progressBar.setToolTipText("");
-        panel.add(progressBar);
-        progressBar.setMaximum(540);
-        progressBar.setMinimum(0);
-       
-        
-        
-        screen.getContentPane().setLayout(groupLayout);
+        screen.getContentPane().setLayout(null);
+        screen.getContentPane().add(panel_5);
+        screen.getContentPane().add(panel_6);
+        screen.getContentPane().add(panel_4);
+        screen.getContentPane().add(show_image);
+        screen.getContentPane().add(panel_1);
+        screen.getContentPane().add(panel_2);
+        screen.getContentPane().add(panel_13);
+        screen.getContentPane().add(panel_7);
+        screen.getContentPane().add(panel_8);
+        screen.getContentPane().add(carparkview);
+        screen.getContentPane().add(tabbedPane);
+        screen.getContentPane().add(lblCapacity);
+        screen.getContentPane().add(progressBar);
+        screen.getContentPane().add(panel_11);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
+        
+        
         //model.start();
         
         //Makes sure the parking spots are visible when starting up
@@ -425,6 +447,28 @@ public class Interface {
 		
 		String concat = str1+":"+str2;
 		lblTijd.setText(concat);
+		
+	}
+
+	//Set number of open spots
+	public static void setNumberOfOpenTotalSpots(int numberOfOpenTotalSpots) {
+		// TODO Auto-generated method stub
+				String str3 = Integer.toString(numberOfOpenTotalSpots);
+				openSpotsLabel.setText(str3);
+	}
+	
+	//Set number of occupied spots
+	public static void setNumberOfOccupiedSpots(int numberOfOccupiedSpots) {
+		// TODO Auto-generated method stub
+				String str4 = Integer.toString(numberOfOccupiedSpots);
+				occupiedSpotsLabel.setText(str4);
+	}
+
+	//Set cummalitive profit
+	public static void setCumulativeProfit(double turnoverTotal) {
+		double roundOff = Math.round(turnoverTotal * 100.0) / 100.0;
+		String str5 = "€ " + Double.toString(roundOff);
+		lblProfit.setText(str5); 
 		
 	}
 }

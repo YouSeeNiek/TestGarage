@@ -3,7 +3,6 @@ package simulatie.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Stream;
 
 import simulatie.view.AbstractView;
 import simulatie.view.SimulatorView;
@@ -17,15 +16,11 @@ public class Simulator implements Runnable {
     private int numberOfOpenSpots;
     private int numberOfOpenParkingPassSpots;
     private int numberOfPresentCars;
-    private static Car[][][] cars;
+    private Car[][][] cars;
 
     private static final String AD_HOC = "1";
     private static final String PARKINGPASS = "2";
     private static final String RESERVED = "3";
-    
-    private static int amountCars;
-    private static int amountPass;
-    private static int amountRes;
 
     private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
@@ -35,19 +30,19 @@ public class Simulator implements Runnable {
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
-
+    
     private static int tickPause = 100;
 
-    int weekDayArrivals=100;
-    int weekendArrivals = 200;
-    int weekDayParkingPassArrivals= 50;
-    int weekendParkingPassArrivals = 5;
-    int weekDayReservedArrivals= 50;
-    int weekendReservedArrivals = 5;
-
-    int enterSpeed = 3;
-    int paymentSpeed = 7;
-    int exitSpeed = 5;
+    int weekDayArrivals= 30;
+    int weekendArrivals = 140;
+    int weekDayParkingPassArrivals= 75;
+    int weekendParkingPassArrivals = 20;
+    int weekDayReservedArrivals= 15;
+    int weekendReservedArrivals = 40;
+    
+    int enterSpeed = 2;
+    int paymentSpeed = 5;
+    int exitSpeed = 2;
 
     double turnoverTotal;
 
@@ -111,7 +106,6 @@ public class Simulator implements Runnable {
         	}
         	tick();
         }
-        
     }
 	
     //Calculation to get the amount of cars present in the garage
@@ -123,14 +117,28 @@ public class Simulator implements Runnable {
         advanceTime();
         handleExit();
         updateViews();
-        setAantalAdHoc();
-        setAantalPass();
-        setAantalReserved();
+        
         //Calling the method in Testor to update progressBar with each Tick()
         Interface.setProgressValue(getNumberOfCars());
         
         //Set time
         Interface.setAll(getDay(), getHour(), getMinute());
+        
+        //Set number of open spots
+        Interface.setNumberOfOpenTotalSpots(getNumberOfOpenTotalSpots());
+        
+        //Set number of occupied spots
+        Interface.setNumberOfOccupiedSpots((540 - getNumberOfOpenTotalSpots()));
+        
+        //Set cumulative profit
+        Interface.setCumulativeProfit(turnoverTotal);
+        
+        //System.out.println(CarQueue.carsInQueue());
+        
+        if (day==6 && hour == 23 && minute == 59) {
+        	pause();
+        	turnoverTotal = 0;
+        }
         
         try {
             Thread.sleep(tickPause);
@@ -138,7 +146,6 @@ public class Simulator implements Runnable {
             e.printStackTrace();
         }
         handleEntrance();
-        
     }
 
     private void advanceTime(){
@@ -154,7 +161,6 @@ public class Simulator implements Runnable {
         while (day > 6) {
             day -= 7;
         }
-
     }
 
     private void handleEntrance(){
@@ -297,6 +303,10 @@ public class Simulator implements Runnable {
     public int getNumberOfOpenParkingPassSpots(){
         return numberOfOpenParkingPassSpots;
     }
+    
+    public int getNumberOfOpenTotalSpots(){
+        return numberOfOpenSpots + numberOfOpenParkingPassSpots;
+    }
 
     public Car getCarAt(Location location) {
         if (!locationIsValid(location)) {
@@ -422,44 +432,4 @@ public class Simulator implements Runnable {
     public int getMinute() {
     	return minute;
     }
-    
-    public static Stream<Car> getAllCars() {
-        List<Car> results = new ArrayList<>();
-
-        for (Car[][] floor : cars)
-            for (Car[] row : floor)
-                for (Car car : row)
-                    if (car != null) results.add(car);
-        return results.stream();
-    }
-
-	public static void setAantalAdHoc() {
-		long x = getAllCars().filter((c) -> (c instanceof AdHocCar)).count();
-		int y = (int) x;
-		amountCars = y;
-	}
-
-	public static void setAantalPass() {
-		long x = getAllCars().filter((c) -> (c instanceof ParkingPassCar)).count();
-		int y = (int) x;
-		amountPass = y;
-	}
-
-	public static void setAantalReserved() {
-		long x = getAllCars().filter((c) -> (c instanceof ReservedCar)).count();
-		int y = (int) x;
-		amountRes = y;
-	}
-	
-	public static int getAantalAdHoc() {
-		return amountCars;
-	}
-	
-	public static int getAantalPass() {
-		return amountPass;
-	}
-	
-	public static int getAantalReserved() {
-		return amountRes;
-	}
 }
