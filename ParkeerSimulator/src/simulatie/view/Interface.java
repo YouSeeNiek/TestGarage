@@ -1,4 +1,4 @@
-package simulatie;
+package simulatie.view;
 
 
 import java.awt.BorderLayout;
@@ -8,13 +8,15 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 
-import simulatie.SimulatorController;
+import simulatie.controller.SimulatorController;
+import simulatie.model.Car;
 import simulatie.model.Simulator;
-import simulatie.AbstractView;
-import simulatie.SimulatorView;
+
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.AbstractAction;
+import javax.swing.AbstractButton;
+
 import java.awt.event.ActionEvent;
 import javax.swing.Action;
 import java.awt.event.ActionListener;
@@ -30,7 +32,16 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.swtchart.Chart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
+//import org.swtchart.Chart;
 
 import javax.swing.JSeparator;
 import javax.swing.GroupLayout;
@@ -54,6 +65,9 @@ import java.awt.GridLayout;
 import java.awt.Canvas;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 
@@ -62,8 +76,8 @@ import java.awt.event.MouseEvent;
  *
  */
 
-public class Testor {
-    private JFrame screen;
+public class Interface {
+    private static JFrame screen;
     private Simulator model;
     private AbstractView carparkview;
 
@@ -100,13 +114,15 @@ public class Testor {
     private JLabel show_image;
     private JPanel panel_11;
     private static JLabel lblProfit;
+	private static AbstractButton label_3;
     private JPanel panel_13;
     private JLabel lblProfit_1;
     private JLabel label_5;
-    private PieChartCars piechart;
+    private static JLabel lblNormalCar;
+    //private PieChartCars piechart;
     
 
-    public Testor() {
+    public Interface() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
@@ -141,7 +157,7 @@ public class Testor {
         
         show_image = new JLabel("");
         show_image.setBounds(12, 14, 156, 42);
-        show_image.setIcon(new ImageIcon(Testor.class.getResource("/img/logo1-01.png")));
+        show_image.setIcon(new ImageIcon(Interface.class.getResource("/img/logo1-01.png")));
         
         panel_11 = new JPanel();
         panel_11.setBounds(1223, 6, 0, 682);
@@ -188,9 +204,6 @@ public class Testor {
          progressBar.setToolTipText("");
          progressBar.setMaximum(540);
          progressBar.setMinimum(0);
-        
-        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.setBounds(1018, 6, 21, 21);
         panel_11.setLayout(new GridLayout(0, 1, 0, 0));
         
         panel_9 = new JPanel();
@@ -220,11 +233,6 @@ public class Testor {
         panel_10.add(label_4);
     	
     	
-        
-        
-        
-				
-        
         
         
         
@@ -335,14 +343,60 @@ public class Testor {
         screen.getContentPane().add(panel_7);
         screen.getContentPane().add(panel_8);
         screen.getContentPane().add(carparkview);
-        screen.getContentPane().add(tabbedPane);
         screen.getContentPane().add(lblCapacity);
         screen.getContentPane().add(progressBar);
         screen.getContentPane().add(panel_11);
+        
+        
+        int red = model.getAantalAdHoc();
+        long blue = model.getAantalReserved();
+        long green = model.getAantalPass();
+        
+        
+        
+        
+        /*
+        */
+        
+        
+        DefaultPieDataset pieDataset = new DefaultPieDataset();
+        pieDataset.setValue("Car", new Integer (100));       
+        pieDataset.setValue("Passholder", new Long (100)); 
+        pieDataset.setValue("Reserved", new Long (100)); 
+        
+        //System.out.println(model.getAantalAdHoc());
+        
+        //PieChart
+        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
+        ChartPanel chartpanel = new ChartPanel(chart);
+        chartpanel.setBounds(985, 177, 200, 200);
+        screen.getContentPane().add(chartpanel);
+        
+        chartpanel.setZoomOutFactor(0.0);
+        chartpanel.setZoomInFactor(0.0);
+        chartpanel.setMinimumDrawWidth(0);
+        chartpanel.setMinimumDrawHeight(0);
+        chartpanel.setMaximumDrawWidth(174);
+        chartpanel.setMaximumDrawHeight(187);
+        chartpanel.setDomainZoomable(true);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
+        //BarChart
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.setValue(180, "", "Parkeerders");
+		dataset.setValue(90, "", "Abbonnement");
+		dataset.setValue(40, "", "Reserveringen");
+		JFreeChart chart1 = ChartFactory.createBarChart("Staaf diagram van aantal auto's", "", "Aantal auto's", dataset,
+				PlotOrientation.VERTICAL, false, true, false);
+		chart1.setBackgroundPaint(Color.WHITE);
+		chart1.getTitle().setPaint(Color.RED);
+		CategoryPlot p = chart1.getCategoryPlot();
+		p.setRangeGridlinePaint(Color.GREEN);
+		ChartFrame frame1 = new ChartFrame("Staaf Diagram", chart1);
+		frame1.setVisible(true);
+		frame1.setSize(500, 500);
         
         
         //model.start();
@@ -382,7 +436,7 @@ public class Testor {
 		dag = day;
 		uur = hour;
 		minuut = minute;
-		
+	
 		switch (dag) {
 			case 0:
 				dagLabel.setText("Maandag");
@@ -436,11 +490,41 @@ public class Testor {
 				occupiedSpotsLabel.setText(str4);
 	}
 
-	//Set cummalitive profit
+	//Set cumulative profit
 	public static void setCumulativeProfit(double turnoverTotal) {
 		double roundOff = Math.round(turnoverTotal * 100.0) / 100.0;
 		String str5 = "€ " + Double.toString(roundOff);
 		lblProfit.setText(str5); 
+		
+	}
+	
+	
+	
+	
+	
+	
+	public static void updatePieChart(int red, long blue, long green) {
+		/*
+		DefaultPieDataset pieDataset = new DefaultPieDataset();
+		pieDataset.setValue("Car", new Integer (red));       
+        pieDataset.setValue("Passholder", new Long (blue)); 
+        pieDataset.setValue("Reserved", new Long (green)); 
+        */
+        
+	}
+
+
+	public static void setCarBalance(int aantalAdHoc, long aantalReserved, long aantalPass) {
+		
+		String str6 = Integer.toString(aantalAdHoc);
+		lblNormalCar.setText(str6); 
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 }

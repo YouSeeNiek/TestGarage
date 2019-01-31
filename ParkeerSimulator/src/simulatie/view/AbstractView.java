@@ -1,4 +1,4 @@
-package simulatie;
+package simulatie.view;
 
 import javax.swing.JPanel;
 

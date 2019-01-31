@@ -1,5 +1,4 @@
-package simulatie;
- 
+package simulatie.view;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package simulatie;
+package simulatie.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -66,7 +66,7 @@ public class SimulatorView extends AbstractView {
                 }
             }
         }
-        
+       
         for(int floor = 2; floor < model.getNumberOfFloors(); floor++) {
             for(int row = 0; row < model.getNumberOfRows(); row++) {
                 for(int place = 0; place < model.getNumberOfPlaces(); place++) {
