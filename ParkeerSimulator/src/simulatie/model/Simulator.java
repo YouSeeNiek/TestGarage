@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import simulatie.Testor;
 import simulatie.view.AbstractView;
 import simulatie.view.SimulatorView;
+import simulatie.view.Interface;
 
 public class Simulator implements Runnable {
 
@@ -22,6 +22,10 @@ public class Simulator implements Runnable {
     private static final String AD_HOC = "1";
     private static final String PARKINGPASS = "2";
     private static final String RESERVED = "3";
+    
+    private static int amountCars;
+    private static int amountPass;
+    private static int amountRes;
 
     private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
@@ -119,11 +123,14 @@ public class Simulator implements Runnable {
         advanceTime();
         handleExit();
         updateViews();
+        setAantalAdHoc();
+        setAantalPass();
+        setAantalReserved();
         //Calling the method in Testor to update progressBar with each Tick()
-        Testor.setProgressValue(getNumberOfCars());
+        Interface.setProgressValue(getNumberOfCars());
         
         //Set time
-        Testor.setAll(getDay(), getHour(), getMinute());
+        Interface.setAll(getDay(), getHour(), getMinute());
         
         try {
             Thread.sleep(tickPause);
@@ -426,21 +433,33 @@ public class Simulator implements Runnable {
         return results.stream();
     }
 
-	public static int getAantalAdHoc() {
+	public static void setAantalAdHoc() {
 		long x = getAllCars().filter((c) -> (c instanceof AdHocCar)).count();
 		int y = (int) x;
-		return y;
+		amountCars = y;
 	}
 
-	public static long getAantalPass() {
+	public static void setAantalPass() {
 		long x = getAllCars().filter((c) -> (c instanceof ParkingPassCar)).count();
 		int y = (int) x;
-		return y;
+		amountPass = y;
 	}
 
-	public static long getAantalReserved() {
+	public static void setAantalReserved() {
 		long x = getAllCars().filter((c) -> (c instanceof ReservedCar)).count();
 		int y = (int) x;
-		return y;
+		amountRes = y;
+	}
+	
+	public static int getAantalAdHoc() {
+		return amountCars;
+	}
+	
+	public static int getAantalPass() {
+		return amountPass;
+	}
+	
+	public static int getAantalReserved() {
+		return amountRes;
 	}
 }

@@ -1,4 +1,4 @@
-package simulatie;
+package simulatie.view;
 
 
 import java.awt.BorderLayout;
@@ -10,8 +10,6 @@ import javax.swing.JFrame;
 
 import simulatie.controller.SimulatorController;
 import simulatie.model.Simulator;
-import simulatie.view.AbstractView;
-import simulatie.view.SimulatorView;
 
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -53,6 +51,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DatasetChangeEvent;
+import org.jfree.data.general.DatasetChangeListener;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -62,8 +62,8 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  */
 
-public class Testor {
-    private JFrame screen;
+public class Interface {
+	private JFrame screen;
     private Simulator model;
     private AbstractView carparkview;
 
@@ -91,7 +91,7 @@ public class Testor {
     private JLabel lblLeeg;
     
 
-    public Testor() {
+    public Interface() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
@@ -219,37 +219,27 @@ public class Testor {
     	
     	
     	DefaultPieDataset pieDataset = new DefaultPieDataset();
-        pieDataset.setValue("Car", new Integer (10));        
-        pieDataset.setValue("Passholder", new Integer (20)); 
-        pieDataset.setValue("Reserved", new Integer (30)); 
+        pieDataset.setValue("Car", new Integer(Simulator.getAantalAdHoc()));
+        pieDataset.setValue("Passholder", new Integer(Simulator.getAantalPass()));
+        pieDataset.setValue("Reserved", new Integer(Simulator.getAantalReserved()));
         JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
         
         ChartFrame frame = new ChartFrame("Pie Chart", chart);
         frame.setVisible(true);
         frame.setSize(400, 500);
         
-        /*
-        JFrame staaf = new JFrame("Staaf Diagram");
-        staaf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        staaf.setSize(400, 500);;
         
-        JPanel staaf_panel = new JPanel();
-        
-        staaf.getContentPane().add(staaf_panel, BorderLayout.CENTER);
-        staaf.pack();
-        staaf.setVisible(true);
-        */
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.setValue(100, "", "Parkeerders");
-		dataset.setValue(200, "", "Abbonnement");
-		dataset.setValue(300, "", "Reserveringen");
-		JFreeChart chart1 = ChartFactory.createBarChart("Staaf diagram van aantal auto's", "", "Aantal auto's", dataset,
+		dataset.setValue(100, "", "Cars");
+		dataset.setValue(200, "", "Passholder");
+		dataset.setValue(300, "", "Reserved");
+		JFreeChart chart1 = ChartFactory.createBarChart("Bar Chart", "", "Amount of Cars", dataset,
 				PlotOrientation.VERTICAL, false, true, false);
 		chart1.setBackgroundPaint(Color.WHITE);
 		chart1.getTitle().setPaint(Color.RED);
 		CategoryPlot p = chart1.getCategoryPlot();
 		p.setRangeGridlinePaint(Color.GREEN);
-		ChartFrame frame1 = new ChartFrame("Staaf Diagram", chart1);
+		ChartFrame frame1 = new ChartFrame("BarChart", chart1);
 		frame1.setVisible(true);
 		frame1.setSize(500, 500);
         
