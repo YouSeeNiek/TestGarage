@@ -3,10 +3,11 @@ package simulatie.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
-import simulatie.AbstractView;
-import simulatie.SimulatorView;
 import simulatie.Testor;
+import simulatie.view.AbstractView;
+import simulatie.view.SimulatorView;
 
 public class Simulator implements Runnable {
 
@@ -16,7 +17,7 @@ public class Simulator implements Runnable {
     private int numberOfOpenSpots;
     private int numberOfOpenParkingPassSpots;
     private int numberOfPresentCars;
-    private Car[][][] cars;
+    private static Car[][][] cars;
 
     private static final String AD_HOC = "1";
     private static final String PARKINGPASS = "2";
@@ -414,4 +415,32 @@ public class Simulator implements Runnable {
     public int getMinute() {
     	return minute;
     }
+    
+    public static Stream<Car> getAllCars() {
+        List<Car> results = new ArrayList<>();
+
+        for (Car[][] floor : cars)
+            for (Car[] row : floor)
+                for (Car car : row)
+                    if (car != null) results.add(car);
+        return results.stream();
+    }
+
+	public static int getAantalAdHoc() {
+		long x = getAllCars().filter((c) -> (c instanceof AdHocCar)).count();
+		int y = (int) x;
+		return y;
+	}
+
+	public static long getAantalPass() {
+		long x = getAllCars().filter((c) -> (c instanceof ParkingPassCar)).count();
+		int y = (int) x;
+		return y;
+	}
+
+	public static long getAantalReserved() {
+		long x = getAllCars().filter((c) -> (c instanceof ReservedCar)).count();
+		int y = (int) x;
+		return y;
+	}
 }

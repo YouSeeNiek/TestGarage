@@ -8,10 +8,11 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 
-import simulatie.SimulatorController;
+import simulatie.controller.SimulatorController;
 import simulatie.model.Simulator;
-import simulatie.AbstractView;
-import simulatie.SimulatorView;
+import simulatie.view.AbstractView;
+import simulatie.view.SimulatorView;
+
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 import javax.swing.AbstractAction;
@@ -46,6 +47,13 @@ import javax.swing.JComboBox;
 import javax.swing.JToggleButton;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * 
@@ -210,13 +218,40 @@ public class Testor {
     	panel_7.add(dagLabel);
     	
     	
+    	DefaultPieDataset pieDataset = new DefaultPieDataset();
+        pieDataset.setValue("Car", new Integer (10));        
+        pieDataset.setValue("Passholder", new Integer (20)); 
+        pieDataset.setValue("Reserved", new Integer (30)); 
+        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
         
+        ChartFrame frame = new ChartFrame("Pie Chart", chart);
+        frame.setVisible(true);
+        frame.setSize(400, 500);
         
+        /*
+        JFrame staaf = new JFrame("Staaf Diagram");
+        staaf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        staaf.setSize(400, 500);;
         
-				
+        JPanel staaf_panel = new JPanel();
         
-        
-        
+        staaf.getContentPane().add(staaf_panel, BorderLayout.CENTER);
+        staaf.pack();
+        staaf.setVisible(true);
+        */
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.setValue(100, "", "Parkeerders");
+		dataset.setValue(200, "", "Abbonnement");
+		dataset.setValue(300, "", "Reserveringen");
+		JFreeChart chart1 = ChartFactory.createBarChart("Staaf diagram van aantal auto's", "", "Aantal auto's", dataset,
+				PlotOrientation.VERTICAL, false, true, false);
+		chart1.setBackgroundPaint(Color.WHITE);
+		chart1.getTitle().setPaint(Color.RED);
+		CategoryPlot p = chart1.getCategoryPlot();
+		p.setRangeGridlinePaint(Color.GREEN);
+		ChartFrame frame1 = new ChartFrame("Staaf Diagram", chart1);
+		frame1.setVisible(true);
+		frame1.setSize(500, 500);
         
         
         JLabel lblPlaatsen = new JLabel("Plaatsen");
