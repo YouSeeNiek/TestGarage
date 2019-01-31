@@ -119,6 +119,19 @@ public class Interface {
     private JLabel lblProfit_1;
     private JLabel label_5;
     private static JLabel lblNormalCar;
+    private JPanel panel;
+    private JPanel panel_3;
+    private JLabel lblAantalNormaleAutos;
+    private static JLabel label_6;
+    private JLabel label_7;
+    private JPanel panel_12;
+    private JLabel lblReserveringen;
+    private static JLabel label_9;
+    private JLabel label_10;
+    private JPanel panel_14;
+    private JLabel lblAbbonnement;
+    private static JLabel label_8;
+    private JLabel label_11;
     //private PieChartCars piechart;
     
 
@@ -379,6 +392,51 @@ public class Interface {
         chartpanel.setMaximumDrawWidth(174);
         chartpanel.setMaximumDrawHeight(187);
         chartpanel.setDomainZoomable(true);
+        
+        
+        panel = new JPanel();
+        panel.setBounds(505, 566, 190, 131);
+        screen.getContentPane().add(panel);
+        panel.setLayout(new GridLayout(0, 1, 0, 0));
+        
+        panel_3 = new JPanel();
+        panel.add(panel_3);
+        
+        lblAantalNormaleAutos = new JLabel("Normaal:");
+        lblAantalNormaleAutos.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_3.add(lblAantalNormaleAutos);
+        
+        label_6 = new JLabel("");
+        panel_3.add(label_6);
+        
+        label_7 = new JLabel("");
+        panel_3.add(label_7);
+        
+        panel_12 = new JPanel();
+        panel.add(panel_12);
+        
+        lblReserveringen = new JLabel("Reserveringen:");
+        lblReserveringen.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_12.add(lblReserveringen);
+        
+        label_9 = new JLabel("");
+        panel_12.add(label_9);
+        
+        label_10 = new JLabel("");
+        panel_12.add(label_10);
+        
+        panel_14 = new JPanel();
+        panel.add(panel_14);
+        
+        lblAbbonnement = new JLabel("Abbonnement: ");
+        lblAbbonnement.setHorizontalAlignment(SwingConstants.LEFT);
+        panel_14.add(lblAbbonnement);
+        
+        label_8 = new JLabel("");
+        panel_14.add(label_8);
+        
+        label_11 = new JLabel("");
+        panel_14.add(label_11);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -408,8 +466,18 @@ public class Interface {
     
     
 	//Method to update the progressBar
-    public static void setProgressValue(int numberOfCars) {
+    public static void setProgressValue(int numberOfCars, int numberOfNormalCars, long numberOfReservedCars, long numberOfParkingPassCars) {
     	progressBar.setValue(numberOfCars);
+    	
+    	String str = Integer.toString(numberOfNormalCars);
+    	label_6.setText(str + " auto's");
+    	
+    	String str1 = Long.toString(numberOfReservedCars);
+    	label_9.setText(str1 + " auto's");
+    	
+    	String str2 = Long.toString(numberOfParkingPassCars);
+    	label_8.setText(str2 + " auto's");
+    	
     }
     
 	private class SwingAction extends AbstractAction {

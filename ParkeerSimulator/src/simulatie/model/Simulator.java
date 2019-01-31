@@ -121,7 +121,7 @@ public class Simulator implements Runnable {
         updateViews();
         
         //Calling the method in Testor to update progressBar with each Tick()
-        Interface.setProgressValue(getNumberOfCars());
+        Interface.setProgressValue(getNumberOfCars(), getAantalAdHoc(), getAantalReserved(), getAantalPass());
         
         //Set time
         Interface.setAll(getDay(), getHour(), getMinute());
