@@ -367,19 +367,12 @@ public class Interface {
         
         
         
-        
-        /*
-        */
-        
-        
+        //PieChart
         DefaultPieDataset pieDataset = new DefaultPieDataset();
         pieDataset.setValue("Car", new Integer (100));       
         pieDataset.setValue("Passholder", new Long (100)); 
-        pieDataset.setValue("Reserved", new Long (100)); 
+        pieDataset.setValue("Reserved", new Long (100));
         
-        //System.out.println(model.getAantalAdHoc());
-        
-        //PieChart
         JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
         ChartPanel chartpanel = new ChartPanel(chart);
         chartpanel.setBounds(985, 177, 200, 200);
@@ -454,7 +447,51 @@ public class Interface {
 		p.setRangeGridlinePaint(Color.GREEN);
 		ChartFrame frame1 = new ChartFrame("Staaf Diagram", chart1);
 		frame1.setVisible(true);
-		frame1.setSize(500, 500);
+		frame1.setSize(250, 250);
+		
+		
+		//Linechart
+		String series1 = "Carr";
+		String series2 = "Reserved";
+		String series3 = "Pass";
+		
+		
+		DefaultCategoryDataset lineDataset = new DefaultCategoryDataset();
+		lineDataset.setValue(20.0, series1, "08:00");
+		lineDataset.setValue(40.0, series1, "12:00");
+		lineDataset.setValue(60.0, series1, "16:00");
+		
+		lineDataset.setValue(80.0, series2, "08:00");
+		lineDataset.setValue(100.0, series2, "12:00");
+		lineDataset.setValue(120.0, series2, "16:00");
+		
+		lineDataset.setValue(140.0, series3, "08:00");
+		lineDataset.setValue(160.0, series3, "12:00");
+		lineDataset.setValue(180.0, series3, "16:00");
+		
+		JFreeChart chart2 = ChartFactory.createLineChart("Line Chart", "X", "Y", lineDataset, PlotOrientation.VERTICAL, true, false, false);
+		
+		chart2.setBackgroundPaint(Color.WHITE);
+		chart2.getTitle().setPaint(Color.RED);
+		CategoryPlot p2 = chart2.getCategoryPlot();
+		p2.setRangeGridlinePaint(Color.GREEN);
+		ChartFrame frame2 = new ChartFrame("Staaf Diagram", chart2);
+		frame2.setVisible(true);
+		frame2.setSize(250, 250);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//
+		
+		
+		
+		
         
         
         //model.start();
@@ -572,20 +609,21 @@ public class Interface {
 	
 	
 	public static void updatePieChart(int red, long blue, long green) {
-		/*
+		
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 		pieDataset.setValue("Car", new Integer (red));       
         pieDataset.setValue("Passholder", new Long (blue)); 
         pieDataset.setValue("Reserved", new Long (green)); 
-        */
+        
+        screen.repaint();
         
 	}
 
 
 	public static void setCarBalance(int aantalAdHoc, long aantalReserved, long aantalPass) {
 		
-		String str6 = Integer.toString(aantalAdHoc);
-		lblNormalCar.setText(str6); 
+		//String str6 = Integer.toString(aantalAdHoc);
+		//lblNormalCar.setText(str6); 
 		
 		
 		
