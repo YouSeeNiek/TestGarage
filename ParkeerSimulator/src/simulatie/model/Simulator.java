@@ -8,7 +8,7 @@ import java.util.*;
 
 import simulatie.view.AbstractView;
 import simulatie.view.SimulatorView;
-import simulatie.view.Interface;
+import simulatie.view.UserInterface;
 
 public class Simulator implements Runnable {
 
@@ -35,11 +35,11 @@ public class Simulator implements Runnable {
     
     private static int tickPause = 100;
 
-    int weekDayArrivals= 30;
+    int weekDayArrivals= 75;
     int weekendArrivals = 140;
-    int weekDayParkingPassArrivals= 75;
+    int weekDayParkingPassArrivals= 60;
     int weekendParkingPassArrivals = 20;
-    int weekDayReservedArrivals= 15;
+    int weekDayReservedArrivals= 20;
     int weekendReservedArrivals = 40;
     
     int enterSpeed = 2;
@@ -121,24 +121,26 @@ public class Simulator implements Runnable {
         updateViews();
         
         //Calling the method in Testor to update progressBar with each Tick()
-        Interface.setProgressValue(getNumberOfCars(), getAantalAdHoc(), getAantalReserved(), getAantalPass());
+        UserInterface.setProgressValue(getNumberOfCars(), getAantalAdHoc(), getAantalReserved(), getAantalPass());
         
         //Set time
-        Interface.setAll(getDay(), getHour(), getMinute());
+        UserInterface.setAll(getDay(), getHour(), getMinute());
         
         //Set number of open spots
-        Interface.setNumberOfOpenTotalSpots(getNumberOfOpenTotalSpots());
+        UserInterface.setNumberOfOpenTotalSpots(getNumberOfOpenTotalSpots());
         
         //Set number of occupied spots
-        Interface.setNumberOfOccupiedSpots((540 - getNumberOfOpenTotalSpots()));
+        UserInterface.setNumberOfOccupiedSpots(getNumberOfCars());
         
         //Set cumulative profit
-        Interface.setCumulativeProfit(turnoverTotal);
+        UserInterface.setCumulativeProfit(turnoverTotal);
         
         //Set car-balance
         //Interface.setCarBalance(getAantalAdHoc(), getAantalReserved(), getAantalPass());
         
-        Interface.updatePieChart(getAantalAdHoc(), getAantalReserved(), getAantalPass());
+        UserInterface.updatePieChart(getAantalAdHoc(), getAantalReserved(), getAantalPass());
+        
+        UserInterface.updateBarChart(getAantalAdHoc(), getAantalReserved(), getAantalPass());
         
         
         

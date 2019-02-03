@@ -1,11 +1,11 @@
 
 package simulatie.runner;
 
-import simulatie.view.Interface;
+import simulatie.view.UserInterface;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		new Interface();
+		new UserInterface();
 	}
 }

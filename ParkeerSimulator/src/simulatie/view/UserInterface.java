@@ -37,6 +37,7 @@ import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -54,6 +55,7 @@ import javax.swing.SwingUtilities;
 import java.awt.Label;
 import javax.swing.JEditorPane;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.SystemColor;
 import javax.swing.JList;
 import javax.swing.JComboBox;
@@ -76,7 +78,7 @@ import java.util.stream.Stream;
  *
  */
 
-public class Interface {
+public class UserInterface {
     private static JFrame screen;
     private Simulator model;
     private AbstractView carparkview;
@@ -132,10 +134,12 @@ public class Interface {
     private JLabel lblAbbonnement;
     private static JLabel label_8;
     private JLabel label_11;
+	private static ChartPanel chartpanel;
+	private static Component frame1;
     //private PieChartCars piechart;
     
 
-    public Interface() {
+    public UserInterface() {
         model = new Simulator();
         controller = new SimulatorController(model);
         carparkview = new SimulatorView(model);
@@ -170,7 +174,7 @@ public class Interface {
         
         show_image = new JLabel("");
         show_image.setBounds(12, 14, 156, 42);
-        show_image.setIcon(new ImageIcon(Interface.class.getResource("/img/logo1-01.png")));
+        show_image.setIcon(new ImageIcon(UserInterface.class.getResource("/img/logo1-01.png")));
         
         panel_11 = new JPanel();
         panel_11.setBounds(1223, 6, 0, 682);
@@ -361,31 +365,24 @@ public class Interface {
         screen.getContentPane().add(panel_11);
         
         
-        int red = model.getAantalAdHoc();
-        long blue = model.getAantalReserved();
-        long green = model.getAantalPass();
         
-        
-        
-        //PieChart
         DefaultPieDataset pieDataset = new DefaultPieDataset();
-        pieDataset.setValue("Car", new Integer (100));       
-        pieDataset.setValue("Passholder", new Long (100)); 
-        pieDataset.setValue("Reserved", new Long (100));
+        pieDataset.setValue("Normaal", new Integer (0));        
+        pieDataset.setValue("Reserveringen", new Long (0)); 
+        pieDataset.setValue("Abonnement", new Long (0)); 
         
-        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataset, true, true, true);
-        ChartPanel chartpanel = new ChartPanel(chart);
-        chartpanel.setBounds(985, 177, 200, 200);
+        JFreeChart chart = ChartFactory.createPieChart("Cirkel Diagram", pieDataset, true, true, true);
+        
+        chartpanel = new ChartPanel(chart);
+        chartpanel.setLocation(831, 511);
+        chartpanel.setVisible(true);
+        chartpanel.setSize(363, 261);
+        
         screen.getContentPane().add(chartpanel);
         
-        chartpanel.setZoomOutFactor(0.0);
-        chartpanel.setZoomInFactor(0.0);
-        chartpanel.setMinimumDrawWidth(0);
-        chartpanel.setMinimumDrawHeight(0);
-        chartpanel.setMaximumDrawWidth(174);
-        chartpanel.setMaximumDrawHeight(187);
-        chartpanel.setDomainZoomable(true);
         
+        
+        //
         
         panel = new JPanel();
         panel.setBounds(505, 566, 190, 131);
@@ -436,65 +433,30 @@ public class Interface {
         
         //BarChart
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.setValue(180, "", "Parkeerders");
-		dataset.setValue(90, "", "Abbonnement");
-		dataset.setValue(40, "", "Reserveringen");
+		dataset.setValue(10, "", "Normaal");
+		dataset.setValue(100, "", "Reserveringen");
+		dataset.setValue(40, "", "Abonnement");
+		
 		JFreeChart chart1 = ChartFactory.createBarChart("Staaf diagram van aantal auto's", "", "Aantal auto's", dataset,
 				PlotOrientation.VERTICAL, false, true, false);
-		chart1.setBackgroundPaint(Color.WHITE);
-		chart1.getTitle().setPaint(Color.RED);
 		CategoryPlot p = chart1.getCategoryPlot();
 		p.setRangeGridlinePaint(Color.GREEN);
-		ChartFrame frame1 = new ChartFrame("Staaf Diagram", chart1);
-		frame1.setVisible(true);
-		frame1.setSize(250, 250);
 		
 		
-		//Linechart
-		String series1 = "Carr";
-		String series2 = "Reserved";
-		String series3 = "Pass";
+		frame1 = new ChartPanel(chart1);
+		frame1.setLocation(0, 511);
 		
-		
-		DefaultCategoryDataset lineDataset = new DefaultCategoryDataset();
-		lineDataset.setValue(20.0, series1, "08:00");
-		lineDataset.setValue(40.0, series1, "12:00");
-		lineDataset.setValue(60.0, series1, "16:00");
-		
-		lineDataset.setValue(80.0, series2, "08:00");
-		lineDataset.setValue(100.0, series2, "12:00");
-		lineDataset.setValue(120.0, series2, "16:00");
-		
-		lineDataset.setValue(140.0, series3, "08:00");
-		lineDataset.setValue(160.0, series3, "12:00");
-		lineDataset.setValue(180.0, series3, "16:00");
-		
-		JFreeChart chart2 = ChartFactory.createLineChart("Line Chart", "X", "Y", lineDataset, PlotOrientation.VERTICAL, true, false, false);
-		
-		chart2.setBackgroundPaint(Color.WHITE);
-		chart2.getTitle().setPaint(Color.RED);
-		CategoryPlot p2 = chart2.getCategoryPlot();
-		p2.setRangeGridlinePaint(Color.GREEN);
-		ChartFrame frame2 = new ChartFrame("Staaf Diagram", chart2);
-		frame2.setVisible(true);
-		frame2.setSize(250, 250);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//
-		
-		
-		
-		
+        screen.getContentPane().add(frame1);
         
-        
-        //model.start();
+        frame1.setVisible(true);
+        frame1.setSize(363, 261);
+		
+		
+		
+		
+		
+		
+		
         
         //Makes sure the parking spots are visible when starting up
         model.tick();
@@ -526,6 +488,7 @@ public class Interface {
 		}
 	}
 	
+	//Slider
 	private class Event implements ChangeListener {
 
 		@Override
@@ -610,27 +573,79 @@ public class Interface {
 	
 	public static void updatePieChart(int red, long blue, long green) {
 		
+		screen.getContentPane().remove(chartpanel);
+		
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
-		pieDataset.setValue("Car", new Integer (red));       
-        pieDataset.setValue("Passholder", new Long (blue)); 
-        pieDataset.setValue("Reserved", new Long (green)); 
+        pieDataset.setValue("Normaal", new Integer (red));        
+        pieDataset.setValue("Reserveringen", new Long (blue)); 
+        pieDataset.setValue("Abonnement", new Long (green)); 
         
-        screen.repaint();
+        
+        JFreeChart chart = ChartFactory.createPieChart("Cirkel Diagram", pieDataset, true, true, true);
+        
+        PiePlot plot = (PiePlot) chart.getPlot();
+        
+        plot.setSectionPaint("Normaal", new Color(255, 0, 0));
+        plot.setSectionPaint("Reserveringen", new Color(0,0,255));
+        plot.setSectionPaint("Abonnement", new Color(139,0,139));
+        
+        chartpanel = new ChartPanel(chart);
+        chartpanel.setLocation(831, 511);
+        chartpanel.setVisible(true);
+        chartpanel.setSize(363, 261);
+        
+        
+        screen.getContentPane().add(chartpanel);   
+        screen.getContentPane().repaint();
         
 	}
 
 
-	public static void setCarBalance(int aantalAdHoc, long aantalReserved, long aantalPass) {
+
+	public static void updateBarChart(int aantalAdHoc, long aantalReserved, long aantalPass) {
 		
-		//String str6 = Integer.toString(aantalAdHoc);
-		//lblNormalCar.setText(str6); 
+		double one = (int) aantalAdHoc;
+		double two = (long) aantalReserved;
+		double three = (long) aantalPass;
+		
+		screen.getContentPane().remove(frame1);
+		
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.setValue(one, "", "Normaal");
+		dataset.setValue(two, "", "Reserveringen");
+		dataset.setValue(three, "", "Abonnement");
+		
+		JFreeChart chart1 = ChartFactory.createBarChart("Staaf diagram van aantal auto's", "", "Aantal auto's", dataset,
+				PlotOrientation.VERTICAL, false, true, false);
+		CategoryPlot p = chart1.getCategoryPlot();
+		p.setRangeGridlinePaint(Color.GREEN);
 		
 		
+		frame1 = new ChartPanel(chart1);
+		frame1.setLocation(0, 511);
 		
+        screen.getContentPane().add(frame1);
+        
+        frame1.setVisible(true);
+        frame1.setSize(363, 261);
 		
-		
-		
-		
+        screen.getContentPane().add(frame1);
+        screen.getContentPane().repaint();
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
